@@ -1,0 +1,57 @@
+service: validkube
+
+provider:
+  name: aws
+  ecr:
+    images:
+      validkube:
+        path: ./     
+  lambdaHashingVersion: "20201221"
+  runtime: go1.x
+  stage: production
+  region: us-east-1
+  memorySize: 256 # 1MB increments, minimum 128, affects pricing
+  environment:
+    ALLOWED_ORIGIN: ${ssm:/validkube/config/allowed_origin}
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
+
+# Endpoint config
+functions:
+  Hello:
+    handler: bin/lambda
+    events:
+      - http:
+          path: /hello
+          method: get
+          cors: true
+  Kubeneat:
+    handler: bin/lambda
+    events:
+      - http:
+          path: /kubeneat
+          method: post
+          cors: true
+  Trivy:
+    image:
+      name: validkube
+    events:
+      - http:
+          path: /trivy
+          method: post
+          cors: true
+  Kubeval:
+    image:
+      name: validkube
+    events:
+      - http:
+          path: /kubeval
+          method: post
+          cors: true          
+
+resources:
+  - ${file(s3-bucket.yml)}
