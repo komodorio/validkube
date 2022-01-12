@@ -7,14 +7,14 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-func Handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+func AntherHandler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	return &events.APIGatewayProxyResponse{
 		StatusCode: 200,
 		Body:       "Hello World!",
 	}, nil
 }
 
-func AntherHandler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+func Handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	name := request.QueryStringParameters["name"]
 	response := fmt.Sprintf("Hello %s!", name)
 
