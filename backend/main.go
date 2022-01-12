@@ -1,4 +1,4 @@
-package backend // Important: Packages with endpoints must be named 'main'
+package main // Important: Packages with endpoints must be named 'main'
 
 import (
 	"log"
