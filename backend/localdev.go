@@ -3,8 +3,8 @@ package main // Important: Packages with endpoints must be named 'main'
 import (
 	"log"
 
-	"github.com/komodorio/kubetools/api/hello"
-	"github.com/komodorio/kubetools/internal/routing"
+	"github.com/komodorio/kubetools/backend/api/hello"
+	"github.com/komodorio/kubetools/backend/internal/routing"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/komodorio/kubetools/internal/routing"
+	"github.com/komodorio/kubetools/backend/internal/routing"
 )
 
 const Path = "/hello"
