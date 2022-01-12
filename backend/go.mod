@@ -1,4 +1,4 @@
-module github.com/komodorio/kubetools
+module github.com/komodorio/kubetools/backend
 
 go 1.17
 
