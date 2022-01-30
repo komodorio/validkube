@@ -100,10 +100,10 @@ const MainViewHeader: React.FC = () => (
       <LogoValidkubeMobileContainer />
       <RightHeaderContainer>
         <SocialButtonContainer>
-          <LinkedinIcon onClick={() => window.open(TWITTER_URL)} />
+          <LinkedinIcon onClick={() => window.open(LINKEDIN_URL)} />
         </SocialButtonContainer>
         <SocialButtonContainer>
-          <TwitterIcon onClick={() => window.open(LINKEDIN_URL)} />
+          <TwitterIcon onClick={() => window.open(TWITTER_URL)} />
         </SocialButtonContainer>
         <DotIconContainer>
           <DotIcon />
