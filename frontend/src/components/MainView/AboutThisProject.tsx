@@ -129,8 +129,6 @@ export const AboutThisProjectBottom: React.FC = () => (
         >
           <div>Validkube on Github</div>
         </CursorPointerWrapper>
-        <DotIcon />
-        <div>Terms of use</div>
       </MobileWrapper>
     </PolicyContainer>
     <SocialMediaContainer>
@@ -146,19 +144,27 @@ export const AboutThisProjectBottom: React.FC = () => (
 
 export const AboutThisProjectHeader: React.FC = () => {
   const checks: {
+    action: string;
     description: string;
+    shortName: string;
     url: string;
   }[] = [
     {
-      description: "Validate - Validate your Kubernetes configuration files @",
+      action: "Validate",
+      description: "- Verify your Kubernetes configuration files @",
+      shortName: "kubectl-neat",
       url: " https://github.com/itaysk/kubectl-neat",
     },
     {
-      description: "Clean - Remove clutter from Kubernetes manifests @",
+      action: "Clean",
+      description: "- Remove clutter from your Kubernetes manifests @",
+      shortName: "kubeval",
       url: " https://github.com/instrumenta/kubeval",
     },
     {
-      description: "Secure - Scan for YAML code for security vulnerabilities @",
+      action: "Secure",
+      description: "- Scan your YAML code for security vulnerabilities @",
+      shortName: "trivy",
       url: " https://github.com/aquasecurity/trivy",
     },
   ];
@@ -168,7 +174,7 @@ export const AboutThisProjectHeader: React.FC = () => {
         <StyledHeadline>About this project</StyledHeadline>
         <br />
         <div>
-          Validkube combines the best open-source tools to help ensure
+          ValidKube combines the best open-source tools to help ensure
           Kubernetes YAML best practices, hygiene & security.
         </div>
         <br />
@@ -181,9 +187,10 @@ export const AboutThisProjectHeader: React.FC = () => {
                 <CheckIcon />
               </CheckIconContainer>
               <span>
+                <b>{check.action} </b>
                 {check.description}{" "}
                 <CustomLink href={check.url} target={check.url}>
-                  {check.url}
+                  {check.shortName}
                 </CustomLink>
                 <GithubButtonContainer>
                   <GitHubButton
@@ -210,7 +217,7 @@ export const AboutThisProjectHeader: React.FC = () => {
           >
             open-source
           </CustomLink>{" "}
-          site, so please feel free to add more tools or capabilities :)
+          site, so please feel free to add more tools or capabilities. :)
         </div>
         <br />
         <BrOnlyOnPc />

@@ -10,10 +10,8 @@ import { ReactComponent as TwitterIcon } from "./assets/TwitterIcon.svg";
 import { ReactComponent as LogoModblieValidkube } from "./assets/Logo_Modblie_validkube.svg";
 
 export const KOMODOR_COM = "https://komodor.com/";
-export const TWITTER_URL =
-  "https://twitter.com/intent/tweet?text=Check%20out%20Validkube!%20It%20combines%20the%20best%20open-source%20tools%20to%20help%20ensure%20Kubernetes%20YAML%20best%20practices,%20hygiene%20%26%20security.%0A%F0%9F%91%89https%3A//validkube.com/";
-export const LINKEDIN_URL =
-  "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//validkube.com/&title=Validkube%20-%20Your%20YAML%20Companion%20&summary=Check%20out%20Validkube!%20It%20combines%20the%20best%20open-source%20tools%20to%20help%20ensure%20Kubernetes%20YAML%20best%20practices,%20hygiene%20%26%20security.&source=";
+export const TWITTER_URL = "https://twitter.com/Komodor_com";
+export const LINKEDIN_URL = "https://www.linkedin.com/company/komodor-ltd/";
 
 const Container = styled.div`
   padding: 1% 1.5%;
