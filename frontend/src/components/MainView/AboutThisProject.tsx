@@ -152,14 +152,14 @@ export const AboutThisProjectHeader: React.FC = () => {
     {
       action: "Validate",
       description: "- Verify your Kubernetes configuration files @",
-      shortName: "kubectl-neat",
-      url: " https://github.com/itaysk/kubectl-neat",
+      shortName: "kubeval",
+      url: " https://github.com/instrumenta/kubeval",
     },
     {
       action: "Clean",
       description: "- Remove clutter from your Kubernetes manifests @",
-      shortName: "kubeval",
-      url: " https://github.com/instrumenta/kubeval",
+      shortName: "kubectl-neat",
+      url: " https://github.com/itaysk/kubectl-neat",
     },
     {
       action: "Secure",
