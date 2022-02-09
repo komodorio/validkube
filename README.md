@@ -6,26 +6,22 @@ Validkube combines the best open-source tools to help ensure Kubernetes YAML bes
 
 ---
 
-### Prerequisite
+### Prerequisites
 
-- aws CLI with access to your AWS
-- yarn
-- npm
-- serverless CLI
+- AWS CLI with access to your AWS
+- Yarn
+- NPM
+- Serverless CLI
 
 ---
 
-### Deploy backend server less
+### Deploy backend serverless
 
 ```bash
     make deploy
 ```
 
-Serverless endpoint: https://gtgmn58dh9.execute-api.us-east-1.amazonaws.com/production
-
-Frontend-domain: https://validkube.com
-
-In order to update web domin:
+In order to update web domain:
 
 ```bash
     aws ssm put-parameter --name /validkube/config/allowed_origin --type String --value {frontend-domain} --overwrite
@@ -40,7 +36,9 @@ In order to deploy frontend:
 
 # Local environment
 
-Set local env of allowed origin, example in Unix-like:
+In order to run this locally, specify 'ALLOWED_ORIGIN' environment variable to 'http://localhost:3000'
+
+Example in Linux:
 
 ```bash
     export ALLOWED_ORIGIN=http://localhost:3000
@@ -56,6 +54,6 @@ In order to start frontend run:
 
 ```bash
     cd frontend
-    yarn insatll
+    yarn install
     yarn start
 ```
