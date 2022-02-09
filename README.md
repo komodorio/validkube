@@ -42,7 +42,7 @@ Deploy frontend:
 
 ```bash
     cd frontend
-    netlify deploy --prod
+    make deploy
 ```
 
 ## Local environment
