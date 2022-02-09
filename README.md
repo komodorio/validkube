@@ -1,21 +1,32 @@
 # validkube
 
-## About this project
+### About this project
 
 Validkube combines the best open-source tools to help ensure Kubernetes YAML best practices, hygiene & security.
 
----
+### Capabilities:
 
-### Prerequisites
+- **Validate** - Verify your Kubernetes configuration files @[kubeval](https://github.com/instrumenta/kubeval)
+- **Clean** - Remove clutter from your Kubernetes manifests @[kubectl-neat](https://github.com/itaysk/kubectl-neat)
+- **Secure** - Scan your YAML code for security vulnerabilities @[trivy](https://github.com/aquasecurity/trivy)
+
+Validkube is an open-source site, so please feel free to add more tools or capabilities. :)
+
+## Prerequisites
+
+---
 
 - AWS CLI with access to your AWS
 - Yarn
 - NPM
 - Serverless CLI
+- Golang v1.17
+
+## Deploy
 
 ---
 
-### Deploy backend serverless
+Deploy backend:
 
 ```bash
     make deploy
@@ -27,14 +38,16 @@ In order to update web domain:
     aws ssm put-parameter --name /validkube/config/allowed_origin --type String --value {frontend-domain} --overwrite
 ```
 
-In order to deploy frontend:
+Deploy frontend:
 
 ```bash
     cd frontend
     netlify deploy --prod
 ```
 
-# Local environment
+## Local environment
+
+---
 
 In order to run this locally, specify 'ALLOWED_ORIGIN' environment variable to 'http://localhost:3000'
 
@@ -44,13 +57,13 @@ Example in Linux:
     export ALLOWED_ORIGIN=http://localhost:3000
 ```
 
-In order to start backend run:
+In order to start backend:
 
 ```bash
     go run backend/development/localdev.go
 ```
 
-In order to start frontend run:
+In order to start frontend:
 
 ```bash
     cd frontend
