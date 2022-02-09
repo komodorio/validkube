@@ -1,5 +1,8 @@
 # validkube
 
+[![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
+[![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/gomods/athens.svg)](https://github.com/gomods/athens) [![Docker](https://badgen.net/badge/icon/docker?icon=docker&label)](https://https://docker.com/)
+
 ### About this project
 
 Validkube combines the best open-source tools to help ensure Kubernetes YAML best practices, hygiene & security.
