@@ -35,11 +35,13 @@ const LeftButtonsContainer = styled.div`
 interface MyYamlProps {
   callApiCallabck: (endpoint: string) => void;
   setExistingYamlTextArea: React.Dispatch<React.SetStateAction<string>>;
+  curTab: number;
 }
 
 const MyYaml: React.FC<MyYamlProps> = ({
   setExistingYamlTextArea,
   callApiCallabck,
+  curTab,
 }) => {
   const [textAreaValue, setTextAreaValue] = useState<string>();
   const setExampleCallback = useCallback(() => {
@@ -75,7 +77,7 @@ const MyYaml: React.FC<MyYamlProps> = ({
               Clear
             </BlackTransparentButton>
           </LeftButtonsContainer>
-          <BlueButton onClick={() => callApiCallabck(API_ENDPOINTS[0])}>
+          <BlueButton onClick={() => callApiCallabck(API_ENDPOINTS[curTab])}>
             Run
           </BlueButton>
         </ButtonsContainer>

@@ -64,6 +64,7 @@ const MainView: React.FC = () => {
           <MyYaml
             callApiCallabck={callApiCallabck}
             setExistingYamlTextArea={setExistingYamlTextArea}
+            curTab={curTab}
           />
           <NewYaml
             yamlOutput={output?.toString()}
