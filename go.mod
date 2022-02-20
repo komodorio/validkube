@@ -7,6 +7,7 @@ require (
 	github.com/awslabs/aws-lambda-go-api-proxy v0.12.0
 	github.com/gin-gonic/gin v1.7.7
 	github.com/itaysk/kubectl-neat v1.2.0
+	gotest.tools v2.2.0+incompatible
 	sigs.k8s.io/yaml v1.3.0
 
 )
@@ -51,7 +52,6 @@ require (
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gotest.tools v2.2.0+incompatible // indirect
 	k8s.io/api v0.20.6 // indirect
 	k8s.io/apiextensions-apiserver v0.0.0 // indirect
 	k8s.io/apimachinery v0.20.6 // indirect
