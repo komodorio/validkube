@@ -5,6 +5,7 @@ import (
 	"github.com/komodorio/validkube/backend/api/hello"
 	"github.com/komodorio/validkube/backend/api/kubeneat"
 	"github.com/komodorio/validkube/backend/api/kubeval"
+	"github.com/komodorio/validkube/backend/api/polaris"
 	"github.com/komodorio/validkube/backend/api/trivy"
 )
 
@@ -34,5 +35,10 @@ var Endpoints = []Endpoint{
 		Path:     trivy.Path,
 		Method:   trivy.Method,
 		Function: trivy.ProcessRequest,
+	},
+	{
+		Path:     polaris.Path,
+		Method:   polaris.Method,
+		Function: polaris.ProcessRequest,
 	},
 }

@@ -63,6 +63,7 @@ Example in Linux:
 In order to start backend:
 
 ```bash
+    go mod download
     go run backend/development/localdev.go
 ```
 
