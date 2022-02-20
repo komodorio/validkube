@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 	"unicode"
 
 	"github.com/gin-gonic/gin"
@@ -14,35 +15,60 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-const Path = "/kubeneat"
-const Method = routing.POST
+const (
+	Path          = "/kubeneat"
+	Method        = routing.POST
+	yamlSeperator = "---"
+)
+
+func neatify(in []byte) (*string, error) {
+	injson := string(in)
+	outjson, err := cmd.Neat(injson)
+	if err != nil {
+		return nil, err
+	}
+	return &outjson, nil
+}
 
 func NeatYAMLOrJSONWrapper(in []byte) (out []byte, errrDescription string, err error) {
-	var injson, outjson string
-
 	itsYaml := !bytes.HasPrefix(bytes.TrimLeftFunc(in, unicode.IsSpace), []byte{'{'})
 	if itsYaml {
-		injsonbytes, err := yaml.YAMLToJSON(in)
-		if err != nil {
-			return nil, "error converting from yaml to json", err
+		var manifests []string
+		if strings.Contains(string(in), yamlSeperator) {
+			manifests = strings.Split(string(in), yamlSeperator)
+		} else {
+			manifests = append(manifests, string(in))
 		}
-		injson = string(injsonbytes)
-	} else {
-		injson = string(in)
-	}
-
-	outjson, err = cmd.Neat(injson)
-	if err != nil {
-		return nil, "error neating", err
-	}
-
-	if itsYaml {
-		out, err = yaml.JSONToYAML([]byte(outjson))
-		if err != nil {
-			return nil, "error converting from json to ymls", err
+		var multiResourceFile string
+		for _, manifest := range manifests {
+			if strings.TrimSpace(manifest) != "" {
+				manifestsBytes, err := yaml.YAMLToJSON([]byte(manifest))
+				if err != nil {
+					return nil, "error converting from yaml to json", err
+				}
+				neatManifestJson, err := neatify(manifestsBytes)
+				if err != nil {
+					return nil, "error neating", err
+				}
+				neatManifestYaml, err := yaml.JSONToYAML([]byte(*neatManifestJson))
+				if err != nil {
+					return nil, "error converting from yaml to yaml", err
+				}
+				if len(manifests) > 1 {
+					multiResourceFile += fmt.Sprintf("%s\n%s", yamlSeperator, neatManifestYaml)
+				} else {
+					multiResourceFile = string(neatManifestYaml)
+				}
+			}
 		}
+		out = []byte(multiResourceFile)
 	} else {
-		out = []byte(outjson)
+		inJson := string(in)
+		outJson, err := cmd.Neat(inJson)
+		if err != nil {
+			return nil, "error neating", err
+		}
+		out = []byte(outJson)
 	}
 	return out, "", nil
 }
