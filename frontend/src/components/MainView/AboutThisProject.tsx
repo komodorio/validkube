@@ -167,6 +167,12 @@ export const AboutThisProjectHeader: React.FC = () => {
       shortName: "trivy",
       url: " https://github.com/aquasecurity/trivy",
     },
+    {
+      action: "Polaris",
+      description: "-Validation of best practices for your yaml @",
+      shortName: "polaris",
+      url: " https://github.com/FairwindsOps/polaris",
+    },
   ];
   return (
     <HeaderContainer>
