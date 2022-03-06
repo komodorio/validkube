@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import GitHubButton from "react-github-btn";
-import { ReactComponent as PoweredByKomodor } from "./assets/PoweredByKomodor.svg";
-import { ReactComponent as LogoValidkube } from "./assets/Logo_validkube.svg";
+import { ReactComponent as PoweredByFirefly } from "./assets/PoweredByFirefly.svg";
+import { ReactComponent as LogoValidiac } from "./assets/Logo_validiac.svg";
 import { ReactComponent as GitIcon } from "./assets/GitIcon.svg";
 import { ReactComponent as LinkedinIcon } from "./assets/LinkedinIcon.svg";
 import { ReactComponent as DotIcon } from "./assets/DotIcon.svg";
 import { ReactComponent as TwitterIcon } from "./assets/TwitterIcon.svg";
-import { ReactComponent as LogoModblieValidkube } from "./assets/Logo_Modblie_validkube.svg";
+import { ReactComponent as LogoModblieValidiac } from "./assets/Logo_Modblie_validiac.svg";
 
-export const KOMODOR_COM = "https://komodor.com/";
-export const TWITTER_URL = "https://twitter.com/Komodor_com";
-export const LINKEDIN_URL = "https://www.linkedin.com/company/komodor-ltd/";
+export const FIREFLY_IO = "https://gofirefly.io/";
+export const TWITTER_URL = "https://twitter.com/goFireflyio";
+export const LINKEDIN_URL = "https://www.linkedin.com/company/gofireflyio/";
 
 const Container = styled.div`
   padding: 1% 1.5%;
@@ -79,13 +79,13 @@ const SocialButtonContainer = styled(ClickButtonContainer)`
   }
 `;
 
-const LogoValidkubeContainer = styled(LogoValidkube)`
+const LogoValidiacContainer = styled(LogoValidiac)`
   @media (max-width: 35rem) {
     display: none;
   }
 `;
 
-const LogoValidkubeMobileContainer = styled(LogoModblieValidkube)`
+const LogoValidiacMobileContainer = styled(LogoModblieValidiac)`
   @media (min-width: 35rem) {
     display: none;
   }
@@ -94,8 +94,8 @@ const LogoValidkubeMobileContainer = styled(LogoModblieValidkube)`
 const MainViewHeader: React.FC = () => (
   <TopContainer>
     <Container>
-      <LogoValidkubeContainer />
-      <LogoValidkubeMobileContainer />
+      <LogoValidiacContainer />
+      <LogoValidiacMobileContainer />
       <RightHeaderContainer>
         <SocialButtonContainer>
           <LinkedinIcon onClick={() => window.open(LINKEDIN_URL)} />
@@ -109,12 +109,12 @@ const MainViewHeader: React.FC = () => (
         <GitContainer>
           <GitIcon />
           <GitHubButton
-            href="https://github.com/komodorio/validkube"
+            href="https://github.com/gofireflyio/validiac"
             data-color-scheme="no-preference: light; light: light; dark: light;"
             data-icon="octicon-star"
             data-size="medium"
             data-show-count="true"
-            aria-label="Star komodorio/validkube on GitHub"
+            aria-label="Star firefly/validiac on GitHub"
             align-self="center"
           ></GitHubButton>
         </GitContainer>
@@ -122,7 +122,7 @@ const MainViewHeader: React.FC = () => (
           <DotIcon />
         </DotIconContainer>
         <ClickButtonContainer>
-          <PoweredByKomodor onClick={() => window.open(KOMODOR_COM)} />
+          <PoweredByFirefly onClick={() => window.open(FIREFLY_IO)} />
         </ClickButtonContainer>
       </RightHeaderContainer>
     </Container>

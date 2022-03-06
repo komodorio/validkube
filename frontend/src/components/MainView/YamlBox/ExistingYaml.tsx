@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { BlackTransparentButton } from "../../GenericComponents/BlackTransparentButton";
 import { BlueButton } from "../../GenericComponents/BlueButton";
-import { NGINX_YAML } from "../manifest/manifest_examples";
+import { SUBNET_TERRAFORM } from "../manifest/manifest_examples";
 import { API_ENDPOINTS } from "./NewYaml";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 
@@ -45,19 +45,19 @@ const MyYaml: React.FC<MyYamlProps> = ({
 }) => {
   const [textAreaValue, setTextAreaValue] = useState<string>();
   const setExampleCallback = useCallback(() => {
-    setTextAreaValue(NGINX_YAML);
-    setExistingYamlTextArea(NGINX_YAML);
+    setTextAreaValue(SUBNET_TERRAFORM);
+    setExistingYamlTextArea(SUBNET_TERRAFORM);
   }, [setExistingYamlTextArea]);
 
   return (
     <div>
-      <Header>Enter a K8s YAML</Header>
+      <Header>Enter Terraform code</Header>
       <br />
       <TextAreaContainer>
         <CodeEditorContainer>
           <CodeEditor
-            language="yaml"
-            placeholder="drop your existing yaml here"
+            language="hvl"
+            placeholder="drop your Infrastructure-as-Code here"
             value={textAreaValue}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => {
               setExistingYamlTextArea(e.target.value);

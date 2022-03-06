@@ -1,4 +1,4 @@
-### Validkube frontend
+### ValidIaC frontend
 
 ### Development
 

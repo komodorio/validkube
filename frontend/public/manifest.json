@@ -1,6 +1,6 @@
 {
-  "short_name": "Validkube",
-  "name": "Validkube by Komodor",
+  "short_name": "ValidIaC",
+  "name": "ValidIaC by Firefly",
   "icons": [
     {
       "src": "favicon.png",
