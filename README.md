@@ -1,19 +1,22 @@
-# validkube
-
-[![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
-[![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/gomods/athens.svg)](https://github.com/gomods/athens) [![Docker](https://badgen.net/badge/icon/docker?icon=docker&label)](https://https://docker.com/)
+# validiac
 
 ### About this project
 
-Validkube combines the best open-source tools to help ensure Kubernetes YAML best practices, hygiene & security.
+ValidIaC combines the best open-source tools to help ensure Terraform best
+practices, hygiene & security.
 
 ### Capabilities:
 
-- **Validate** - Verify your Kubernetes configuration files @[kubeval](https://github.com/instrumenta/kubeval)
-- **Clean** - Remove clutter from your Kubernetes manifests @[kubectl-neat](https://github.com/itaysk/kubectl-neat)
-- **Secure** - Scan your YAML code for security vulnerabilities @[trivy](https://github.com/aquasecurity/trivy)
+- **Lint** - Lint your Terraform HCL files with [tflint](https://github.com/terraform-linters/tflint)
+- **Secure** - Scan your Terraform templates for security vulnerabilities with [tfsec](https://github.com/aquasecurity/tfsec)
+- **Cost** - Get a breakdown of your cloud costs with [infracost](https://github.com/infracost/infracost)
+- **Map** - Chart a map of your cloud infrastructure with [inframap](https://github.com/cycloidio/inframap)
 
-Validkube is an open-source site, so please feel free to add more tools or capabilities. :)
+ValidIaC is an open-source solution, so please feel free to add more capabilities or tools :)
+
+A free online instance of ValidIaC is available for anyone to use at https://www.validiac.com.
+The program can both be deployed as an AWS Lambda function, or be used directly
+from the command line.
 
 ## Prerequisites
 
@@ -25,51 +28,28 @@ Validkube is an open-source site, so please feel free to add more tools or capab
 - Serverless CLI
 - Golang v1.17
 
-## Deploy
+## CLI/Local Server Usage
 
----
+The `validiac` binary can be used in three different ways:
 
-Deploy backend:
+1. As a CLI utility.
+2. As an HTTP server.
+3. As an AWS Lambda handler.
 
-```bash
-    make deploy
-```
+To compile the binary:
 
-In order to update web domain:
+1. Download dependencies with `make deps`
+2. Build validiac with `make build`
+3. Run validiac: `bin/validiac --help`
 
-```bash
-    aws ssm put-parameter --name /validkube/config/allowed_origin --type String --value {frontend-domain} --overwrite
-```
+Other make tasks:
+- run unit tests: `make test`
+- run static code analysis: `make lint` (requires [golangci-lint](https://golangci-lint.run/))
+- clean validiac binary: `make clean`
+- clean all binaries, including dependencies: `make clean-all`
 
-Deploy frontend:
+## Upgrading Dependency Versions
 
-```bash
-    cd frontend
-    make deploy
-```
-
-## Local environment
-
----
-
-In order to run this locally, specify 'ALLOWED_ORIGIN' environment variable to 'http://localhost:3000'
-
-Example in Linux:
-
-```bash
-    export ALLOWED_ORIGIN=http://localhost:3000
-```
-
-In order to start backend:
-
-```bash
-    go run backend/development/localdev.go
-```
-
-In order to start frontend:
-
-```bash
-    cd frontend
-    yarn install
-    yarn start
-```
+The versions used for the four base tools are defined in the [Makefile](Makefile).
+Simply change the version number of the relevant tool and rebuild (the validiac
+binary will need to be rebuilt as well).

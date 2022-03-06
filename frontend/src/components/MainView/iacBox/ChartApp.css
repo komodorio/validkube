@@ -1,0 +1,22 @@
+.map-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.map-chart polygon {
+    fill: transparent;
+}
+.map-chart ellipse {
+    stroke: white;
+    fill: #305BBB;
+}
+.map-chart .edge path {
+    stroke: white;
+}
+.map-chart .edge polygon {
+    stroke: white;
+}
+.map-chart text {
+    fill: white;
+}

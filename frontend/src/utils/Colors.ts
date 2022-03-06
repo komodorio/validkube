@@ -1,6 +1,9 @@
-export const mainBackgrund = "#000C37";
+export const mainBackgrund = "#0D0534";
 export const yamlTextColor = "#707583";
-export const blueForButton = "#007AFF";
-export const greyBorder = "#9195a1";
-export const purpleBackground = "#2D197D";
+export const blueForButton = "#305BBB";
+export const greyBorder = "rgba(255, 255, 255, 0.3)";
+export const purpleBackground = "#cfd8ff";
 export const pinkForText = "#FC1683";
+export const boxBackground = "rgba(255, 255, 255, 0.07)";
+export const secondBtnColor = "rgba(255, 255, 255, 0.6)";
+export const secondBtnBackground = "rgba(255, 255, 255, 0.2)";

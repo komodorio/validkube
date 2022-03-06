@@ -108,3 +108,7 @@ dist
 
 #deploy
 /bin
+bin
+*.tf
+.idea/*
+.DS_Store
