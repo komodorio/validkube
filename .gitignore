@@ -108,3 +108,6 @@ dist
 
 #deploy
 /bin
+
+.idea/*
+/**/.DS_Store
