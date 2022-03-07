@@ -2,19 +2,19 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import { purpleBackground } from "../../utils/Colors";
 import { ReactComponent as CheckIcon } from "./assets/Check.svg";
-import { ReactComponent as KomodorLogo } from "./assets/KomodorLogo.svg";
+import { ReactComponent as FireflyLogo } from "./assets/FireflyLogo.svg";
 import { ReactComponent as DotIcon } from "./assets/DotIcon.svg";
 import { ReactComponent as LinkedinIcon } from "./assets/LinkedinIcon.svg";
 import { ReactComponent as TwitterIcon } from "./assets/TwitterIcon.svg";
 import { ReactComponent as GreyDotIcon } from "./assets/GreyDotIcon.svg";
-import { KOMODOR_COM, LINKEDIN_URL, TWITTER_URL } from "./MainViewHeader";
+import { FIREFLY_IO, LINKEDIN_URL, TWITTER_URL } from "./MainViewHeader";
 import GitHubButton from "react-github-btn";
 import { BrOnlyOnPc } from "./index";
 
-const GITHUB_REPO_VALIDKUBE = "https://github.com/komodorio/validkube";
+const GITHUB_REPO_VALIDIAC = "https://github.com/gofireflyio/validiac";
 
 const Container = styled.div`
-  color: white;
+  color: #0D0534;
   text-align: center;
   word-break: break-word;
   display: flex;
@@ -31,6 +31,7 @@ const HeaderContainer = styled(Container)`
 `;
 
 const BottomContainer = styled(Container)`
+  color: #ffffff;
   @media (max-width: 74rem) {
     justify-content: space-between;
   }
@@ -67,7 +68,7 @@ const CheckIconContainer = styled.div`
 `;
 
 const CustomLink = styled.a`
-  color: white;
+  color: #0D0534;
   font-family: Roboto;
   align-self: center;
 `;
@@ -121,13 +122,13 @@ const GithubButtonContainer = styled.span`
 export const AboutThisProjectBottom: React.FC = () => (
   <BottomContainer>
     <PolicyContainer>
-      <div>© Komodor 2022</div>
+      <div className="bottom">© Firefly 2022</div>
       <MobileWrapper>
         <DotIcon />
         <CursorPointerWrapper
-          onClick={() => window.open(GITHUB_REPO_VALIDKUBE)}
+          onClick={() => window.open(GITHUB_REPO_VALIDIAC)}
         >
-          <div>Validkube on Github</div>
+          <div className="bottom">ValidIaC on Github</div>
         </CursorPointerWrapper>
       </MobileWrapper>
     </PolicyContainer>
@@ -137,7 +138,7 @@ export const AboutThisProjectBottom: React.FC = () => (
         <TwitterIcon onClick={() => window.open(TWITTER_URL)} />
         <GreyDotIcon />
       </PcWrapper>
-      <KomodorLogo onClick={() => window.open(KOMODOR_COM)} />
+      <FireflyLogo onClick={() => window.open(FIREFLY_IO)} />
     </SocialMediaContainer>
   </BottomContainer>
 );
@@ -151,22 +152,28 @@ export const AboutThisProjectHeader: React.FC = () => {
   }[] = [
     {
       action: "Validate",
-      description: "- Verify your Kubernetes configuration files @",
-      shortName: "kubeval",
-      url: " https://github.com/instrumenta/kubeval",
-    },
-    {
-      action: "Clean",
-      description: "- Remove clutter from your Kubernetes manifests @",
-      shortName: "kubectl-neat",
-      url: " https://github.com/itaysk/kubectl-neat",
+      description: "- Verify your IaC configuration files @",
+      shortName: "tflint",
+      url: " https://github.com/terraform-linters/tflint",
     },
     {
       action: "Secure",
-      description: "- Scan your YAML code for security vulnerabilities @",
-      shortName: "trivy",
-      url: " https://github.com/aquasecurity/trivy",
+      description: "- Scan your IaC for security vulnerabilities @",
+      shortName: "tfsec",
+      url: " https://github.com/aquasecurity/tfsec",
     },
+    {
+      action: "Cost",
+      description: "- Scan your IaC for cost optimization @",
+      shortName: "infracost",
+      url: " https://github.com/infracost/infracost",
+    },
+    {
+      action: "Map",
+      description: "- Chart a map of your cloud infrastructure @",
+      shortName: "inframap",
+      url: " https://github.com/cycloidio/inframap",
+    }
   ];
   return (
     <HeaderContainer>
@@ -174,8 +181,8 @@ export const AboutThisProjectHeader: React.FC = () => {
         <StyledHeadline>About this project</StyledHeadline>
         <br />
         <div>
-          ValidKube combines the best open-source tools to help ensure
-          Kubernetes YAML best practices, hygiene & security.
+          ValidIaC combines the best open-source tools to help ensure
+          Infrastructure-as-Code best practices, hygiene & security.
         </div>
         <br />
         <StyledH4>Capabilities:</StyledH4>
@@ -210,10 +217,10 @@ export const AboutThisProjectHeader: React.FC = () => {
         ))}
         <br />
         <div style={{ wordBreak: "break-word" }}>
-          Validkube is an{" "}
+          ValidIaC is an{" "}
           <CustomLink
-            href={GITHUB_REPO_VALIDKUBE}
-            target={GITHUB_REPO_VALIDKUBE}
+            href={GITHUB_REPO_VALIDIAC}
+            target={GITHUB_REPO_VALIDIAC}
           >
             open-source
           </CustomLink>{" "}
