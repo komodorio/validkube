@@ -44,9 +44,6 @@ $(INFRAMAP_EXEC): check
 	$(shell wget -O- https://github.com/cycloidio/inframap/releases/download/v${INFRAMAP_VERSION}/inframap-${UNAME_S}-amd64.tar.gz | tar xzfO - > ${INFRAMAP_EXEC})
 	@chmod +x ${INFRAMAP_EXEC}
 
-$(BIN_DIR)/validiac:
-	go build -ldflags "-s -w -X github.com/gofireflyio/validiac/backend/api.TFLintExec=${TFLINT_EXEC} -X github.com/gofireflyio/validiac/backend/api.TFSecExec=${TFSEC_EXEC} -X github.com/gofireflyio/validiac/backend/api.InfraMapExec=${INFRAMAP_EXEC} -X github.com/gofireflyio/validiac/backend/api.InfraCostExec=${INFRACOST_EXEC}" -o $(BIN_DIR)/validiac backend/main.go
-
 .PHONY: deps test build clean clean-all
 deps: $(TFLINT_EXEC) $(TFSEC_EXEC) $(INFRACOST_EXEC) $(INFRAMAP_EXEC)
 
@@ -56,7 +53,11 @@ test:
 lint:
 	golangci-lint run ./...
 
-build: $(BIN_DIR)/validiac
+build:
+	CGO_ENABLED=0 go build -tags netgo -ldflags "-s -w -X github.com/gofireflyio/validiac/backend/api.TFLintExec=${TFLINT_EXEC} -X github.com/gofireflyio/validiac/backend/api.TFSecExec=${TFSEC_EXEC} -X github.com/gofireflyio/validiac/backend/api.InfraMapExec=${INFRAMAP_EXEC} -X github.com/gofireflyio/validiac/backend/api.InfraCostExec=${INFRACOST_EXEC}" -o ${BIN_DIR}/validiac backend/main.go
+
+docker:
+	docker build -t gofireflyio/validiac:latest .
 
 clean:
 	rm $(BIN_DIR)/validiac
