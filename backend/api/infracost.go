@@ -11,14 +11,14 @@ var InfraCostExec = ""
 const InfraCostAPIKey = "infracost-api-key"
 
 func InfraCost(in []byte) ([]byte, error) {
-	path, err := asTempFile("", "", in)
+	path, err := asTempDir(".tf", in)
 	if err != nil {
 		return nil, err
 	}
 
 	defer os.Remove(path) // nolint: errcheck
 
-	cmd := exec.Command(InfraCostExec, "breakdown", "--path", path)
+	cmd := exec.Command(InfraCostExec, "breakdown", "--path", path, "--terraform-parse-hcl")
 	cmd.Env = append(cmd.Env, fmt.Sprintf("INFRACOST_API_KEY=%s", InfraCostAPIKey))
 	return cmd.CombinedOutput()
 }

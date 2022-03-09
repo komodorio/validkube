@@ -35,12 +35,13 @@ export const callAPI = (
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+
     },
   })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((response) => {
-      setResponse(response.data);
-      setError(response.err);
+      setResponse(response);
     })
     .catch((error) => {
       setError(error);

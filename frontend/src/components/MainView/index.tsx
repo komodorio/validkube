@@ -45,7 +45,7 @@ const MainView: React.FC = () => {
       callAPI(
         endpoint,
         {
-          yaml: existingYamlTextArea,
+          hcl: existingYamlTextArea,
         },
         setOutput,
         setFetching,
