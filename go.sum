@@ -4,6 +4,8 @@ github.com/alecthomas/kong v0.4.1/go.mod h1:uzxf/HUh0tj43x1AyJROl3JT7SgsZ5m+icOv
 github.com/alecthomas/repr v0.0.0-20210801044451-80ca428c5142/go.mod h1:2kn6fqh/zIyPLmm3ugklbEi5hg5wS435eygvNfaDQL8=
 github.com/aquasecurity/lmdrouter v0.4.3 h1:PpaWYbfAqZ++yd4M/Tb/DUoH1f0SU4wZPKgZmPwNNPU=
 github.com/aquasecurity/lmdrouter v0.4.3/go.mod h1:vkF/ZqcXXUIcJXeAtUF867A/SHONd8MUw/+sy7uLXRA=
+github.com/aquasecurity/lmdrouter v0.4.4-0.20220309114549-7b6c548da0a1 h1:iV3uh+mTGNU4o+6pw0B/NWx6/YkeAYQqtXCEDsH1ZDk=
+github.com/aquasecurity/lmdrouter v0.4.4-0.20220309114549-7b6c548da0a1/go.mod h1:vkF/ZqcXXUIcJXeAtUF867A/SHONd8MUw/+sy7uLXRA=
 github.com/aws/aws-lambda-go v1.15.0/go.mod h1:FEwgPLE6+8wcGBTe5cJN3JWurd1Ztm9zN4jsXsjzKKw=
 github.com/aws/aws-lambda-go v1.28.0 h1:fZiik1PZqW2IyAN4rj+Y0UBaO1IDFlsNo9Zz/XnArK4=
 github.com/aws/aws-lambda-go v1.28.0/go.mod h1:jJmlefzPfGnckuHdXX7/80O3BvUUi12XOkbv4w9SGLU=

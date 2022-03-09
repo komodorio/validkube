@@ -28,7 +28,15 @@ from the command line.
 - Serverless CLI
 - Golang v1.17
 
-## CLI Usage
+## CLI/Local Server Usage
+
+The `validiac` binary can be used in three different ways:
+
+1. As a CLI utility.
+2. As an HTTP server.
+3. As an AWS Lambda handler.
+
+To compile the binary:
 
 1. Download dependencies with `make deps`
 2. Build validiac with `make build`

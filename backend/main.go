@@ -18,13 +18,14 @@ var router *lmdrouter.Router
 var isLambda bool
 
 func init() {
+	router = lmdrouter.NewRouter("")
+	router.Route("POST", "/lint", lint)
+	router.Route("POST", "/secure", secure)
+	router.Route("POST", "/map", graph)
+	router.Route("POST", "/cost", cost)
+
 	if _, ok := os.LookupEnv("AWS_LAMBDA_FUNCTION_NAME"); ok {
 		isLambda = true
-		router = lmdrouter.NewRouter("/")
-		router.Route("POST", "/lint", lint)
-		router.Route("POST", "/secure", secure)
-		router.Route("POST", "/map", graph)
-		router.Route("POST", "/cost", cost)
 	}
 }
 
@@ -35,43 +36,63 @@ func main() {
 	} else {
 		// we are running from the command line
 		var cli struct {
-			Cmd  string `arg:"" required:"" help:"Command to run (lint, secure, map, cost)"`
-			Path string `arg:"" required:"" help:"Path of file to run on"`
+			Cmd  string `arg:"" optional:"" help:"Command to run (lint, secure, map, cost)"`
+			Path string `arg:"" optional:"" help:"Path of file to run on"`
+			Port int    `help:"Port to listen on if running as HTTP server" default:8080`
 		}
 
 		kong.Parse(&cli)
 
-		var cmd api.ToolFunc
-
-		switch cli.Cmd {
-		case "lint":
-			cmd = api.TFLint
-		case "secure":
-			cmd = api.TFSec
-		case "map":
-			cmd = api.InfraMap
-		case "cost":
-			cmd = api.InfraCost
-		default:
-			log.Fatalf("Invalid command %s", cli.Cmd)
-		}
-
-		in, err := os.ReadFile(cli.Path)
-		if err != nil {
-			log.Fatalf("Failed reading %s: %s", cli.Path, err)
-		}
-
-		out, err := cmd(in)
-
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Fatal error: %s\n", err)
-			if len(out) > 0 {
-				os.Stderr.Write(out)
-			}
-			os.Exit(1)
+		if cli.Cmd == "" && cli.Path == "" {
+			runLocalServer(cli.Port)
 		} else {
-			os.Stdout.Write(out)
+			runCLI(cli.Cmd, cli.Path)
 		}
+	}
+}
+
+func runLocalServer(port int) {
+	srv := &http.Server{
+		Addr:    fmt.Sprintf(":%d", port),
+		Handler: router,
+	}
+
+	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
+		log.Fatalf("HTTP server failed: %s", err)
+	}
+}
+
+func runCLI(cmdName, path string) {
+	var cmd api.ToolFunc
+
+	switch cmdName {
+	case "lint":
+		cmd = api.TFLint
+	case "secure":
+		cmd = api.TFSec
+	case "map":
+		cmd = api.InfraMap
+	case "cost":
+		cmd = api.InfraCost
+	default:
+		log.Fatalf("Invalid command %s", cmdName)
+	}
+
+	in, err := os.ReadFile(path)
+	if err != nil {
+		log.Fatalf("Failed reading %s: %s", path, err)
+	}
+
+	out, err := cmd(in)
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Fatal error: %s\n", err)
+		if len(out) > 0 {
+			os.Stderr.Write(out)
+		}
+		os.Exit(1)
+	} else {
+		os.Stdout.Write(out)
 	}
 }
 
@@ -81,10 +102,10 @@ func lint(ctx context.Context, req events.APIGatewayProxyRequest) (
 ) {
 	out, err := api.TFLint([]byte(req.Body))
 	if err != nil {
-		return lmdrouter.HandleError(err)
+		return handleToolError(out, err)
 	}
 
-	return lmdrouter.MarshalResponse(http.StatusOK, nil, out)
+	return parseOutput(out)
 }
 
 func cost(ctx context.Context, req events.APIGatewayProxyRequest) (
@@ -93,10 +114,10 @@ func cost(ctx context.Context, req events.APIGatewayProxyRequest) (
 ) {
 	out, err := api.InfraCost([]byte(req.Body))
 	if err != nil {
-		return lmdrouter.HandleError(err)
+		return handleToolError(out, err)
 	}
 
-	return lmdrouter.MarshalResponse(http.StatusOK, nil, out)
+	return parseOutput(out)
 }
 
 func secure(ctx context.Context, req events.APIGatewayProxyRequest) (
@@ -105,10 +126,10 @@ func secure(ctx context.Context, req events.APIGatewayProxyRequest) (
 ) {
 	out, err := api.TFSec([]byte(req.Body))
 	if err != nil {
-		return lmdrouter.HandleError(err)
+		return handleToolError(out, err)
 	}
 
-	return lmdrouter.MarshalResponse(http.StatusOK, nil, out)
+	return parseOutput(out)
 }
 
 func graph(ctx context.Context, req events.APIGatewayProxyRequest) (
@@ -117,8 +138,29 @@ func graph(ctx context.Context, req events.APIGatewayProxyRequest) (
 ) {
 	out, err := api.InfraMap([]byte(req.Body))
 	if err != nil {
-		return lmdrouter.HandleError(err)
+		return handleToolError(out, err)
 	}
 
-	return lmdrouter.MarshalResponse(http.StatusOK, nil, out)
+	return parseOutput(out)
+}
+
+func handleToolError(out []byte, err error) (
+	events.APIGatewayProxyResponse,
+	error,
+) {
+	if len(out) > 0 {
+		return parseOutput(out)
+	}
+
+	return lmdrouter.HandleError(err)
+}
+
+func parseOutput(out []byte) (events.APIGatewayProxyResponse, error) {
+	return events.APIGatewayProxyResponse{
+		StatusCode: http.StatusBadRequest,
+		Headers: map[string]string{
+			"Content-Type": "text/plain",
+		},
+		Body: string(out),
+	}, nil
 }

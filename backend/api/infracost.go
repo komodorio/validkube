@@ -8,7 +8,7 @@ import (
 
 var InfraCostExec = ""
 
-const InfraCostAPIKey = "asdf"
+const InfraCostAPIKey = "infracost-api-key"
 
 func InfraCost(in []byte) ([]byte, error) {
 	path, err := asTempFile("", "", in)
