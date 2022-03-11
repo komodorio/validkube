@@ -14,6 +14,5 @@ func TFLint(in []byte) ([]byte, error) {
 	}
 
 	defer os.Remove(path) // nolint: errcheck
-
-	return exec.Command(TFLintExec, "--enable-plugin=aws", path).CombinedOutput()
+	return exec.Command(TFLintExec, "--enable-plugin=aws", path, "--no-color").CombinedOutput()
 }
