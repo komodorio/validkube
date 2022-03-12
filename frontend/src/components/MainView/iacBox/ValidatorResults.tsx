@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import isEmpty from "lodash/isEmpty";
 import {
   copyContentToClipboard,
   downloadContentToTextFile,
@@ -12,12 +13,15 @@ import { SmallBr } from "../AboutThisProject";
 import {
   CodeEditorContainer,
   StyledHr,
-  StyledTextAreaCss,
   TextAreaContainer,
-} from "./YamlBoxComponents";
+  StyledTextAreaCss,
+  InfraMapCss
+} from "./IacBoxComponents";
 import CodeEditor from "@uiw/react-textarea-code-editor";
+import { Graphviz } from 'graphviz-react';
 
 export const API_ENDPOINTS = ["lint", "secure", "cost", "map"];
+const tabs = ["Validate", "Secure", "Cost", "Map"];
 
 const Container = styled.div``;
 
@@ -59,8 +63,8 @@ const ErrorTextPink = styled(ErrorText)`
   color: ${pinkForText};
 `;
 
-interface NewYamlProps {
-  yamlOutput: string;
+interface ResultsProps {
+  output: string;
   fetching: boolean;
   err: any;
   callApiCallabck: (endpoint: string) => void;
@@ -68,15 +72,14 @@ interface NewYamlProps {
   setCurTab: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const NewYaml: React.FC<NewYamlProps> = ({
-  yamlOutput,
+const ValidatorResults: React.FC<ResultsProps> = ({
+  output,
   fetching,
   err,
   callApiCallabck,
   curTab,
   setCurTab,
 }) => {
-  const tabs = ["Validate", "Secure", "Cost", "Map"];
 
   return (
     <Container>
@@ -100,27 +103,32 @@ const NewYaml: React.FC<NewYamlProps> = ({
             <ErrorText>{err.toString()}</ErrorText>
           </ErrorContainer>
         ) : (
-          <CodeEditorContainer>
-            <CodeEditor
-              language="yaml"
-              value={yamlOutput}
-              placeholder="here is where the magic happens"
-              padding={15}
-              style={StyledTextAreaCss}
-            />
-          </CodeEditorContainer>
+          <>
+            <CodeEditorContainer>
+              {tabs[curTab] == "Map" && !isEmpty(output) ?
+                  <Graphviz dot={output} /> :
+                <CodeEditor
+                  language="bash"
+                  value={output}
+                  placeholder="here is where the magic happens"
+                  padding={15}
+                  style={StyledTextAreaCss}
+                />
+              }
+            </CodeEditorContainer>
+          </>
         )}
         <StyledHr />
         <ButtonsContainer>
           <BlackTransparentButton
             onClick={() =>
-              downloadContentToTextFile(yamlOutput, "new_yaml.yaml")
+              downloadContentToTextFile(output, "result.txt")
             }
           >
             Download
           </BlackTransparentButton>
           <BlackTransparentButton
-            onClick={() => copyContentToClipboard(yamlOutput)}
+            onClick={() => copyContentToClipboard(output)}
           >
             Copy
           </BlackTransparentButton>
@@ -130,4 +138,4 @@ const NewYaml: React.FC<NewYamlProps> = ({
   );
 };
 
-export default NewYaml;
+export default ValidatorResults;

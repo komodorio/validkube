@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BlackTransparentButton } from "../../GenericComponents/BlackTransparentButton";
 import { BlueButton } from "../../GenericComponents/BlueButton";
 import { SUBNET_TERRAFORM } from "../manifest/manifest_examples";
-import { API_ENDPOINTS } from "./NewYaml";
+import { API_ENDPOINTS } from "./ValidatorResults";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 
 import {
@@ -11,7 +11,7 @@ import {
   StyledHr,
   StyledTextAreaCss,
   TextAreaContainer,
-} from "./YamlBoxComponents";
+} from "./IacBoxComponents";
 
 const Header = styled.div`
   color: white;
@@ -32,22 +32,22 @@ const LeftButtonsContainer = styled.div`
   gap: 1rem;
 `;
 
-interface MyYamlProps {
+interface ExistingHclProps {
   callApiCallabck: (endpoint: string) => void;
-  setExistingYamlTextArea: React.Dispatch<React.SetStateAction<string>>;
+  setExistingHclTextArea: React.Dispatch<React.SetStateAction<string>>;
   curTab: number;
 }
 
-const MyYaml: React.FC<MyYamlProps> = ({
-  setExistingYamlTextArea,
+const ExistingHcl: React.FC<ExistingHclProps> = ({
+  setExistingHclTextArea,
   callApiCallabck,
   curTab,
 }) => {
   const [textAreaValue, setTextAreaValue] = useState<string>();
   const setExampleCallback = useCallback(() => {
     setTextAreaValue(SUBNET_TERRAFORM);
-    setExistingYamlTextArea(SUBNET_TERRAFORM);
-  }, [setExistingYamlTextArea]);
+    setExistingHclTextArea(SUBNET_TERRAFORM);
+  }, [setExistingHclTextArea]);
 
   return (
     <div>
@@ -56,11 +56,11 @@ const MyYaml: React.FC<MyYamlProps> = ({
       <TextAreaContainer>
         <CodeEditorContainer>
           <CodeEditor
-            language="hvl"
+            language="hcl"
             placeholder="drop your Infrastructure-as-Code here"
             value={textAreaValue}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-              setExistingYamlTextArea(e.target.value);
+              setExistingHclTextArea(e.target.value);
               setTextAreaValue(e.target.value);
             }}
             padding={15}
@@ -86,4 +86,4 @@ const MyYaml: React.FC<MyYamlProps> = ({
   );
 };
 
-export default MyYaml;
+export default ExistingHcl;

@@ -42,3 +42,10 @@ export const CodeEditorContainer = styled.div`
     height: 250px;
   }
 `;
+
+export const InfraMapCss = {
+  fontSize: 14,
+  fontFamily: "Roboto Mono",
+  minHeight: 483,
+  color: "#90a4ae",
+};

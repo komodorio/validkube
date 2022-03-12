@@ -6,8 +6,8 @@ import {
   AboutThisProjectBottom,
   AboutThisProjectHeader,
 } from "./AboutThisProject";
-import MyYaml from "./YamlBox/ExistingYaml";
-import NewYaml from "./YamlBox/NewYaml";
+import ExistingHcl from "./iacBox/ExistingHcl";
+import ValidatorResults from "./iacBox/ValidatorResults";
 
 const TextaresContainer = styled.div`
   display: grid;
@@ -33,7 +33,7 @@ export const BrOnlyOnPc = styled.br`
 `;
 
 const MainView: React.FC = () => {
-  const [existingYamlTextArea, setExistingYamlTextArea] = useState("");
+  const [existingHclTextArea, setExistingHclTextArea] = useState("");
   const [output, setOutput] = useState<any>();
   const [fetching, setFetching] = useState(false);
   const [err, setErr] = useState<any>();
@@ -41,18 +41,18 @@ const MainView: React.FC = () => {
 
   const callApiCallabck = useCallback(
     (endpoint: string) => {
-      if (!existingYamlTextArea || existingYamlTextArea === "") return;
+      if (!existingHclTextArea || existingHclTextArea === "") return;
       callAPI(
         endpoint,
         {
-          hcl: existingYamlTextArea,
+          hcl: existingHclTextArea,
         },
         setOutput,
         setFetching,
         setErr
       );
     },
-    [existingYamlTextArea]
+    [existingHclTextArea]
   );
 
   return (
@@ -61,13 +61,13 @@ const MainView: React.FC = () => {
       <MainViewBodyContainer>
         <BrOnlyOnPc />
         <TextaresContainer>
-          <MyYaml
+          <ExistingHcl
             callApiCallabck={callApiCallabck}
-            setExistingYamlTextArea={setExistingYamlTextArea}
+            setExistingHclTextArea={setExistingHclTextArea}
             curTab={curTab}
           />
-          <NewYaml
-            yamlOutput={output?.toString()}
+          <ValidatorResults
+            output={output?.toString()}
             fetching={fetching}
             err={err}
             callApiCallabck={callApiCallabck}
