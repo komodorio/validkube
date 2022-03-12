@@ -12,7 +12,7 @@ practices, hygiene & security.
 - **Cost** - Get a breakdown of your cloud costs with [infracost](https://github.com/infracost/infracost)
 - **Map** - Chart a map of your cloud infrastructure with [inframap](https://github.com/cycloidio/inframap)
 
-ValidIaC is an open-source site, so please feel free to add more tools or capabilities. :)
+ValidIaC is an open-source solution, so please feel free to add more capabilities or tools :)
 
 A free online instance of ValidIaC is available for anyone to use at https://ADD-LINK-HERE.
 The program can both be deployed as an AWS Lambda function, or be used directly
