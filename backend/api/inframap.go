@@ -15,5 +15,5 @@ func InfraMap(in []byte) ([]byte, error) {
 
 	defer os.Remove(path) // nolint: errcheck
 
-	return exec.Command(InfraMapExec, "generate", path).CombinedOutput()
+	return exec.Command(InfraMapExec, "generate", "--raw", "--show-icons=true", "--connections=false", "--clean=false", path).CombinedOutput()
 }

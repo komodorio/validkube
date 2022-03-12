@@ -27,7 +27,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_API=http://localhost:8080 react-scripts start",
     "build:local": "cross-env REACT_APP_API=http://localhost:8080 react-scripts build",
-    "build": "cross-env REACT_APP_API=https://gtgmn58dh9.execute-api.us-east-1.amazonaws.com/production react-scripts build",
+    "build": "cross-env REACT_APP_API=https://2ln75ta5be.execute-api.us-east-1.amazonaws.com/api react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"*/**/*.{js,ts,tsx}\" --max-warnings=0",

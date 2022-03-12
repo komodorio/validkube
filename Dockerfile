@@ -15,4 +15,5 @@ RUN chmod +x ./bin/validiac
 
 FROM scratch
 COPY --from=0 /validiac/bin/* /validiac/bin/
+ENV HOME="/validiac/bin/"
 ENTRYPOINT ["/validiac/bin/validiac"]
