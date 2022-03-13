@@ -38,6 +38,15 @@ export const callAPI = (
       "Access-Control-Allow-Headers": "Content-Type"
     },
   })
+    .then((response) => {
+      if (!(response.status >= 200 && response.status <= 299)) {
+        response.text().then(txt => {
+          setError(txt);
+          return txt;
+        })
+      }
+      return response
+    })
     .then((response) => response.text())
     .then((response) => {
       setResponse(response);
@@ -49,7 +58,6 @@ export const callAPI = (
       setFetching(false);
     });
 };
-
 const emptyInterface = {};
 const Response = Record({
   data: Record({}),
@@ -61,10 +69,10 @@ export const useCallAPIHook = (
   endpoint: string,
   data: typeof emptyInterface
 ): [
-  respone: ResponseType | undefined,
-  fetching: boolean,
-  error: any | null
-] => {
+    respone: ResponseType | undefined,
+    fetching: boolean,
+    error: any | null
+  ] => {
   const [response, setResponse] = useState<ResponseType>();
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);

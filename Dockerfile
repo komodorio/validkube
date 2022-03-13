@@ -13,7 +13,8 @@ RUN ls -lr ./
 RUN make -e build && make -e test
 RUN chmod +x ./bin/validiac
 
-FROM scratch
+FROM alpine:3.14
+RUN apk add -u ca-certificates
 COPY --from=0 /validiac/bin/* /validiac/bin/
 ENV HOME="/validiac/bin/"
 ENTRYPOINT ["/validiac/bin/validiac"]
