@@ -23,16 +23,10 @@ type Request struct {
 
 func init() {
 	router = lmdrouter.NewRouter("", corsMiddleware)
-	router.Route("OPTIONS", "/lint", cors)
+	router.Route("OPTIONS", "/(lint|secure|map|cost)", cors)
 	router.Route("POST", "/lint", lint)
-
 	router.Route("POST", "/secure", secure)
-	router.Route("OPTIONS", "/secure", cors)
-
-	router.Route("OPTIONS", "/map", cors)
 	router.Route("POST", "/map", graph)
-
-	router.Route("OPTIONS", "/cost", cors)
 	router.Route("POST", "/cost", cost)
 
 	if _, ok := os.LookupEnv("AWS_LAMBDA_FUNCTION_NAME"); ok {
@@ -212,7 +206,7 @@ func cors(ctx context.Context, req events.APIGatewayProxyRequest) (
 			"Access-Control-Allow-Origin":      "*",
 			"Access-Control-Allow-Credentials": "true",
 			"Access-Control-Allow-Headers":     "*",
-			"Allow":                            "GET, POST, OPTIONS",
+			"Allow":                            "POST, OPTIONS",
 		},
 	}, nil
 }
@@ -226,7 +220,7 @@ func corsMiddleware(next lmdrouter.Handler) lmdrouter.Handler {
 		res.Headers["Access-Control-Allow-Origin"] = "*"
 		res.Headers["Access-Control-Allow-Credentials"] = "true"
 		res.Headers["Access-Control-Allow-Headers"] = "*"
-		res.Headers["Allow"] = "GET, POST, OPTIONS"
+		res.Headers["Allow"] = "POST, OPTIONS"
 		return res, err
 	}
 }
