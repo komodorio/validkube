@@ -6,8 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+    "os/exec"
 
-	"github.com/alecthomas/kong"
+    "github.com/alecthomas/kong"
 	"github.com/aquasecurity/lmdrouter"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -151,6 +152,11 @@ func secure(ctx context.Context, req events.APIGatewayProxyRequest) (
 
 	out, err := api.TFSec([]byte(input.HCL))
 	if err != nil {
+        if exitError, ok := err.(*exec.ExitError); ok && exitError.Stderr == nil{
+            // TfSec exits while detecting security vulnerabilities
+            // In this case we prefer to return status OK and return the TfSec result
+            return parseOutput(http.StatusOK, out)
+        }
 		return handleToolError(out, err)
 	}
 
