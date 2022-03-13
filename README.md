@@ -14,7 +14,7 @@ practices, hygiene & security.
 
 ValidIaC is an open-source solution, so please feel free to add more capabilities or tools :)
 
-A free online instance of ValidIaC is available for anyone to use at https://ADD-LINK-HERE.
+A free online instance of ValidIaC is available for anyone to use at https://www.validiac.com.
 The program can both be deployed as an AWS Lambda function, or be used directly
 from the command line.
 
