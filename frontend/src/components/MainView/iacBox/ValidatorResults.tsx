@@ -7,7 +7,7 @@ import {
 } from "../../../utils/browserActions";
 import { pinkForText } from "../../../utils/Colors";
 import { BlackTransparentButton } from "../../GenericComponents/BlackTransparentButton";
-import { LinesLoader } from "../../GenericComponents/LineLoader";
+import { Loader } from "../../GenericComponents/loader/Loader";
 import { TabButtons } from "../../GenericComponents/Tabs";
 import { SmallBr } from "../AboutThisProject";
 import {
@@ -94,7 +94,7 @@ const ValidatorResults: React.FC<ResultsProps> = ({
       <TextAreaContainer>
         {fetching ? (
           <LoadingContainer>
-            <LinesLoader />
+            <Loader />
           </LoadingContainer>
         ) : err ? (
           <ErrorContainer>

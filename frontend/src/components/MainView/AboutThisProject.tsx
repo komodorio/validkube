@@ -224,7 +224,7 @@ export const AboutThisProjectHeader: React.FC = () => {
           >
             open-source
           </CustomLink>{" "}
-          site, so please feel free to add more tools or capabilities. :)
+          solution, so please feel free to add more capabilities or tools :)
         </div>
         <br />
         <BrOnlyOnPc />
