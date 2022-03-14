@@ -19,7 +19,7 @@ import {
 } from "./IacBoxComponents";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { Graphviz } from 'graphviz-react';
-
+import Empty from '../assets/empty.png';
 export const API_ENDPOINTS = ["lint", "secure", "cost", "map"];
 const tabs = ["Validate", "Secure", "Cost", "Map"];
 
@@ -80,7 +80,6 @@ const ValidatorResults: React.FC<ResultsProps> = ({
   curTab,
   setCurTab,
 }) => {
-
   return (
     <Container>
       <TabButtons
@@ -106,6 +105,12 @@ const ValidatorResults: React.FC<ResultsProps> = ({
           <>
             <CodeEditorContainer>
               {tabs[curTab] == "Map" && !isEmpty(output) ?
+                // Graph is empty
+                output.replace(/\n/g, '') == "strict digraph G {}" ?
+                  <div style={{ alignItems: "center", justifyContent: "center", display: "flex", height: "100%" }}>
+                    <img src={Empty} style={{ alignItems: "center", justifyContent: "center" }} />
+                  </div> :
+                  // Rendering Graph
                   <Graphviz dot={output} /> :
                 <CodeEditor
                   language="bash"

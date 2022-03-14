@@ -114,6 +114,14 @@ func lint(ctx context.Context, req events.APIGatewayProxyRequest) (
 
 	out, err := api.TFLint([]byte(input.HCL))
 	if err != nil {
+        if err != nil {
+            if exitError, ok := err.(*exec.ExitError); ok && exitError.Stderr == nil{
+                // TfLint exits while detecting lint error
+                // In this case we prefer to return status OK and return the result
+                return parseOutput(http.StatusOK, out)
+            }
+            return handleToolError(out, err)
+        }
 		return handleToolError(out, err)
 	}
 
