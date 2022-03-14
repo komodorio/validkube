@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { greyBorder, mainBackgrund } from "../../../utils/Colors";
+import { greyBorder, mainBackgrund, boxBackground } from "../../../utils/Colors";
 
 export const StyledTextArea = styled.textarea`
   height: 450px;
@@ -25,8 +25,10 @@ export const StyledTextAreaCss = {
 };
 
 export const TextAreaContainer = styled.div`
-  border: 1px solid ${greyBorder};
+  border: 1px solid transparent;
   width: 100%;
+  background-color: ${boxBackground};
+  border-radius: 10px;
 `;
 
 export const StyledHr = styled.hr`

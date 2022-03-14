@@ -59,7 +59,7 @@ const DotIconContainer = styled.div`
 `;
 
 const StyledHr = styled.hr`
-  border-top: 0.2px solid #9195a1;
+  border-top: 0.2px solid rgba(255, 255, 255, 0.3);
   border-bottom: none;
   margin: 0;
 `;
@@ -122,7 +122,7 @@ const MainViewHeader: React.FC = () => (
           <DotIcon />
         </DotIconContainer>
         <ClickButtonContainer>
-          <PoweredByFirefly onClick={() => window.open(FIREFLY_IO)} />
+          <PoweredByFirefly onClick={() => window.open(FIREFLY_IO)} style={{ width:'auto', height: '70px' }} />
         </ClickButtonContainer>
       </RightHeaderContainer>
     </Container>
