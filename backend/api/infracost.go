@@ -18,7 +18,7 @@ func InfraCost(in []byte) ([]byte, error) {
 
 	defer os.Remove(path) // nolint: errcheck
 
-	cmd := exec.Command(InfraCostExec, "breakdown", "--path", path, "--terraform-parse-hcl", "--no-color")
+	cmd := exec.Command(InfraCostExec, "breakdown", "--path", path, "--terraform-parse-hcl", "--no-color", "--log-level=error")
 	cmd.Env = append(cmd.Env, fmt.Sprintf("INFRACOST_API_KEY=%s", infraCostApiKey), fmt.Sprintf("PATH=%s", os.Getenv("PATH")))
 	return cmd.CombinedOutput()
 }

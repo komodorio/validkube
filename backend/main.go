@@ -6,9 +6,10 @@ import (
 	"log"
 	"net/http"
 	"os"
-    "os/exec"
+	"os/exec"
+	"strings"
 
-    "github.com/alecthomas/kong"
+	"github.com/alecthomas/kong"
 	"github.com/aquasecurity/lmdrouter"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -114,14 +115,14 @@ func lint(ctx context.Context, req events.APIGatewayProxyRequest) (
 
 	out, err := api.TFLint([]byte(input.HCL))
 	if err != nil {
-        if err != nil {
-            if exitError, ok := err.(*exec.ExitError); ok && exitError.Stderr == nil{
-                // TfLint exits while detecting lint error
-                // In this case we prefer to return status OK and return the result
-                return parseOutput(http.StatusOK, out)
-            }
-            return handleToolError(out, err)
-        }
+		if err != nil {
+			if exitError, ok := err.(*exec.ExitError); ok && exitError.Stderr == nil {
+				// TfLint exits while detecting lint error
+				// In this case we prefer to return status OK and return the result
+				return parseOutput(http.StatusOK, out)
+			}
+			return handleToolError(out, err)
+		}
 		return handleToolError(out, err)
 	}
 
@@ -145,7 +146,13 @@ func cost(ctx context.Context, req events.APIGatewayProxyRequest) (
 		return handleToolError(out, err)
 	}
 
-	return parseOutput(http.StatusOK, out)
+    //Trimming empty lines
+	var outputTxt = strings.Trim(string(out), "\n")
+    //Removing the first line
+	outputTxt = strings.Join( strings.Split(outputTxt, "\n")[1:], "\n")
+    //Trimming empty lines
+    outputTxt = strings.Trim(outputTxt, "\n")
+	return parseOutput(http.StatusOK, []byte(outputTxt))
 }
 
 func secure(ctx context.Context, req events.APIGatewayProxyRequest) (
@@ -160,11 +167,11 @@ func secure(ctx context.Context, req events.APIGatewayProxyRequest) (
 
 	out, err := api.TFSec([]byte(input.HCL))
 	if err != nil {
-        if exitError, ok := err.(*exec.ExitError); ok && exitError.Stderr == nil{
-            // TfSec exits while detecting security vulnerabilities
-            // In this case we prefer to return status OK and return the TfSec result
-            return parseOutput(http.StatusOK, out)
-        }
+		if exitError, ok := err.(*exec.ExitError); ok && exitError.Stderr == nil {
+			// TfSec exits while detecting security vulnerabilities
+			// In this case we prefer to return status OK and return the TfSec result
+			return parseOutput(http.StatusOK, out)
+		}
 		return handleToolError(out, err)
 	}
 
