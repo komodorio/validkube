@@ -12,5 +12,5 @@ export const BlueButton = styled.button`
   color: white;
   font-family: "Roboto";
   padding: 0.4rem 1rem;
-  border-radius: 2px;
+  border-radius: 4px;
 `;

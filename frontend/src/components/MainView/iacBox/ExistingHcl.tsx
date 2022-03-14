@@ -15,7 +15,7 @@ import {
 
 const Header = styled.div`
   color: white;
-  font-weight: 700;
+  font-weight: 500;
   font-family: Poppins;
   text-align: left;
 `;
@@ -56,7 +56,7 @@ const ExistingHcl: React.FC<ExistingHclProps> = ({
       <TextAreaContainer>
         <CodeEditorContainer>
           <CodeEditor
-            language="hcl"
+            language="js"
             placeholder="drop your Infrastructure-as-Code here"
             value={textAreaValue}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => {
