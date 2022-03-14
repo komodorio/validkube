@@ -14,7 +14,7 @@ RUN make -e build && make -e test
 RUN chmod +x ./bin/validiac
 
 FROM alpine:3.14
-RUN apk add -u ca-certificates
+RUN apk add -u ca-certificates git
 COPY --from=0 /validiac/bin/* /validiac/bin/
 ENV HOME="/validiac/bin/"
-ENTRYPOINT ["/validiac/bin/validiac"]
+ENTRYPOINT ["/bin/sh", "-c", "'/validiac/bin/validiac'"]

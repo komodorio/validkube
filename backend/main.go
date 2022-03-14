@@ -126,7 +126,7 @@ func lint(ctx context.Context, req events.APIGatewayProxyRequest) (
 	}
 
 	if len(out) == 0 {
-		out = []byte("Success, your file is valid")
+		out = []byte("Success, your IaC is valid!")
 	}
 	return parseOutput(http.StatusOK, out)
 }
