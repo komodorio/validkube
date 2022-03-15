@@ -5,7 +5,7 @@ import (
 	"os/exec"
 )
 
-var TFSecExec = "./bin/tfsec-1.5.0"
+var TFSecExec = ""
 
 func TFSec(in []byte) ([]byte, error) {
 	path, err := asTempDir(".tf", in)
