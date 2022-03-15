@@ -50,7 +50,7 @@ const ExistingHcl: React.FC<ExistingHclProps> = ({
   }, [setExistingHclTextArea]);
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <Header>Enter Terraform code</Header>
       <br />
       <TextAreaContainer>
