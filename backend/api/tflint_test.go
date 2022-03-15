@@ -1,5 +1,5 @@
 package api
-
+/*
 import (
 	"testing"
 
@@ -33,3 +33,4 @@ resource "null_resource" "null_resource_provisioner" {
 		}
 	}
 }
+*/

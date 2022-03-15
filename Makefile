@@ -55,6 +55,7 @@ lint:
 
 build:
 	CGO_ENABLED=0 go build -tags netgo -ldflags "-s -w -X github.com/gofireflyio/validiac/backend/api.TFLintExec=${TFLINT_EXEC} -X github.com/gofireflyio/validiac/backend/api.TFSecExec=${TFSEC_EXEC} -X github.com/gofireflyio/validiac/backend/api.InfraMapExec=${INFRAMAP_EXEC} -X github.com/gofireflyio/validiac/backend/api.InfraCostExec=${INFRACOST_EXEC}" -o ${BIN_DIR}/validiac backend/main.go
+	${TFLINT_EXEC} --init -c ".tflint.hcl"
 
 docker:
 	docker build -t gofireflyio/validiac:latest .
