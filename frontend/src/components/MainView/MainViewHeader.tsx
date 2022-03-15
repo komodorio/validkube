@@ -10,6 +10,7 @@ import { ReactComponent as TwitterIcon } from "./assets/TwitterIcon.svg";
 export const FIREFLY_IO = "https://gofirefly.io/";
 export const TWITTER_URL = "https://twitter.com/goFireflyio";
 export const LINKEDIN_URL = "https://www.linkedin.com/company/gofireflyio/";
+export const GITHUB_URL = "https://github.com/gofireflyio/validiac";
 
 const Container = styled.div`
   padding: 1% 1.5%;
@@ -24,6 +25,8 @@ const Container = styled.div`
 const GitContainer = styled.div`
   align-items: center;
   display: flex;
+  cursor: pointer;
+  transform: translateY(-1px);
   @media (max-width: 30rem) {
     padding-left: 1.5rem;
     > svg {
@@ -98,7 +101,7 @@ const MainViewHeader: React.FC = () => (
           <TwitterIcon onClick={() => window.open(TWITTER_URL)} />
         </SocialButtonContainer>
         <GitContainer>
-          <GitIcon />
+          <GitIcon onClick={() => window.open(GITHUB_URL)} />
           <GitHubButton
             href="https://github.com/gofireflyio/validiac"
             data-color-scheme="no-preference: light; light: light; dark: light;"

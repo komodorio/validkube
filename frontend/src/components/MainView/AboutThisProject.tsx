@@ -12,6 +12,7 @@ import GitHubButton from "react-github-btn";
 import { BrOnlyOnPc } from "./index";
 
 const GITHUB_REPO_VALIDIAC = "https://github.com/gofireflyio/validiac";
+const VALIDKUBE_URL = "https://validkube.com/";
 
 const Container = styled.div`
   color: #0D0534;
@@ -229,6 +230,16 @@ export const AboutThisProjectHeader: React.FC = () => {
             open-source
           </CustomLink>{" "}
           solution, so please feel free to add more capabilities or tools :)
+        </div>
+        <br />
+        <div style={{ wordBreak: "break-word" }}>
+        Looking for K8s YAML validation tool? check out {" "}
+          <CustomLink
+            href={VALIDKUBE_URL}
+            target={VALIDKUBE_URL}
+          >
+            validkube.com
+          </CustomLink>
         </div>
         <br />
         <BrOnlyOnPc />
