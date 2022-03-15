@@ -24,10 +24,10 @@ const Container = styled.div`
 `;
 
 const HeaderContainer = styled(Container)`
-background: url(${Ukraine});
-background-position: center center;
-background-repeat: no-repeat;
-background-size: cover;  @media (max-width: 74rem) {
+    background: url(${Ukraine});
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;  @media (max-width: 74rem) {
     display: grid;
   }
 `;
