@@ -34,7 +34,7 @@ const GitContainer = styled.div`
   }
   > svg {
     vertical-align: center;
-    width: 33px;
+    width: 34px;
     margin-right: 0.3rem;
   }
 `;
