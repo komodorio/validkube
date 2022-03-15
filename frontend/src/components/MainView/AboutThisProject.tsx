@@ -132,6 +132,8 @@ export const AboutThisProjectBottom: React.FC = () => (
         >
           <div className="bottom">ValidIaC on Github</div>
         </CursorPointerWrapper>
+        <DotIcon />
+      <div className="bottom">#StandWithUkrine</div>
       </MobileWrapper>
     </PolicyContainer>
     <SocialMediaContainer>
