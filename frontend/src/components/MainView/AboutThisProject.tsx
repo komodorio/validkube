@@ -24,7 +24,7 @@ const Container = styled.div`
 `;
 
 const HeaderContainer = styled(Container)`
-  background: linear-gradient(109.64deg, #8559fe 0.01%, #59fee0 106.5%);
+  background: linear-gradient(109.64deg, #0154B1 0.01%, #F7D003 106.5%);
   @media (max-width: 74rem) {
     display: grid;
   }
