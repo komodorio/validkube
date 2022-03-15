@@ -20,10 +20,13 @@ import {
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { Graphviz } from 'graphviz-react';
 import Empty from '../assets/empty.png';
+import './ChartApp.css';
 export const API_ENDPOINTS = ["lint", "secure", "cost", "map"];
 const tabs = ["Validate", "Secure", "Cost", "Map"];
 
-const Container = styled.div``;
+const Container = styled.div`
+width: 100%;
+`;
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -45,7 +48,11 @@ const ErrorAndLoadingContainer = styled.div`
 
 const ErrorContainer = styled(ErrorAndLoadingContainer)`
   color: white;
-  text-align: left;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const LoadingContainer = styled(ErrorAndLoadingContainer)`
@@ -55,12 +62,15 @@ const LoadingContainer = styled(ErrorAndLoadingContainer)`
 `;
 
 const ErrorText = styled.div`
-  font-weight: 500;
+  font-weight: 400;
   font-family: "Roboto mono";
+  font-size: 14px;
 `;
 
 const ErrorTextPink = styled(ErrorText)`
   color: ${pinkForText};
+  font-weight: bold;
+  font-size: 16px;
 `;
 
 interface ResultsProps {
@@ -97,7 +107,7 @@ const ValidatorResults: React.FC<ResultsProps> = ({
           </LoadingContainer>
         ) : err ? (
           <ErrorContainer>
-            <ErrorTextPink>something's not working</ErrorTextPink>
+            <ErrorTextPink>Something's not working</ErrorTextPink>
             <SmallBr />
             <ErrorText>{err.toString()}</ErrorText>
           </ErrorContainer>
@@ -107,11 +117,16 @@ const ValidatorResults: React.FC<ResultsProps> = ({
               {tabs[curTab] == "Map" && !isEmpty(output) ?
                 // Graph is empty
                 output.replace(/\n/g, '') == "strict digraph G {}" ?
-                  <div style={{ alignItems: "center", justifyContent: "center", display: "flex", height: "100%" }}>
-                    <img src={Empty} style={{ alignItems: "center", justifyContent: "center" }} />
+                  <div style={{ alignItems: "center", justifyContent: "center", display: "flex", flexDirection: "column", gap: '20px', height: "100%", padding: '20px'}}>
+                    <img src={Empty} style={{ alignItems: "center", justifyContent: "center", height: '80px' }} />
+                    <span style={{ color: 'white', opacity: '.7', textAlign: 'center' }}>Sorry. inframap doesn’t support this terraform code</span>
                   </div> :
                   // Rendering Graph
-                  <Graphviz dot={output} /> :
+                  <Graphviz dot={output} className="map-chart" options={{
+                  height: '80%',
+                  width: '80%',
+                  zoom: true,
+                  }} /> :
                 <CodeEditor
                   language="bash"
                   value={output}

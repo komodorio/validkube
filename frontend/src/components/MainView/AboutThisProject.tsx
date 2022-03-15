@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { purpleBackground } from "../../utils/Colors";
 import { ReactComponent as CheckIcon } from "./assets/Check.svg";
 import { ReactComponent as FireflyLogo } from "./assets/FireflyLogo.svg";
 import { ReactComponent as DotIcon } from "./assets/DotIcon.svg";
 import { ReactComponent as LinkedinIcon } from "./assets/LinkedinIcon.svg";
 import { ReactComponent as TwitterIcon } from "./assets/TwitterIcon.svg";
 import { ReactComponent as GreyDotIcon } from "./assets/GreyDotIcon.svg";
+import Ukraine from "./assets/ukraine.svg";
 import { FIREFLY_IO, LINKEDIN_URL, TWITTER_URL } from "./MainViewHeader";
 import GitHubButton from "react-github-btn";
 import { BrOnlyOnPc } from "./index";
@@ -24,8 +24,10 @@ const Container = styled.div`
 `;
 
 const HeaderContainer = styled(Container)`
-  background: linear-gradient(109.64deg, #0154B1 0.01%, #F7D003 106.5%);
-  @media (max-width: 74rem) {
+  background: url(${Ukraine});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;  @media (max-width: 74rem) {
     display: grid;
   }
 `;

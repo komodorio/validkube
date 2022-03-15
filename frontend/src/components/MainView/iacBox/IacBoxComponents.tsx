@@ -22,11 +22,13 @@ export const StyledTextAreaCss = {
   fontFamily: "Roboto Mono",
   minHeight: 483,
   color: "#90a4ae",
+  overflow: 'hidden',
 };
 
 export const TextAreaContainer = styled.div`
   border: 1px solid transparent;
   width: 100%;
+  max-width: 84vw;
   background-color: ${boxBackground};
   border-radius: 10px;
 `;
@@ -39,9 +41,12 @@ export const StyledHr = styled.hr`
 
 export const CodeEditorContainer = styled.div`
   height: 483px;
+  width: 100%;
+  max-width: 40vw;
   overflow: auto;
   @media (max-width: 74rem) {
     height: 250px;
+    max-width: 84vw;
   }
 `;
 
