@@ -18,6 +18,7 @@ import (
 
 var router *lmdrouter.Router
 var isLambda bool
+var isDebug bool
 
 type Request struct {
 	HCL string `json:"hcl"`
@@ -34,6 +35,10 @@ func init() {
 	if _, ok := os.LookupEnv("AWS_LAMBDA_FUNCTION_NAME"); ok {
 		isLambda = true
 	}
+
+    if _, ok := os.LookupEnv("IS_DEBUG"); ok {
+        isDebug = true
+    }
 }
 
 func main() {
@@ -107,6 +112,10 @@ func lint(ctx context.Context, req events.APIGatewayProxyRequest) (
 	res events.APIGatewayProxyResponse,
 	err error,
 ) {
+    if isDebug{
+        log.Printf(req.Body)
+    }
+
 	var input Request
 	err = lmdrouter.UnmarshalRequest(req, true, &input)
 	if err != nil {
@@ -136,6 +145,10 @@ func cost(ctx context.Context, req events.APIGatewayProxyRequest) (
 	res events.APIGatewayProxyResponse,
 	err error,
 ) {
+    if isDebug{
+        log.Printf(req.Body)
+    }
+
 	var input Request
 	err = lmdrouter.UnmarshalRequest(req, true, &input)
 	if err != nil {
@@ -159,6 +172,10 @@ func secure(ctx context.Context, req events.APIGatewayProxyRequest) (
 	res events.APIGatewayProxyResponse,
 	err error,
 ) {
+    if isDebug{
+        log.Printf(req.Body)
+    }
+
 	var input Request
 	err = lmdrouter.UnmarshalRequest(req, true, &input)
 	if err != nil {
@@ -182,6 +199,10 @@ func graph(ctx context.Context, req events.APIGatewayProxyRequest) (
 	res events.APIGatewayProxyResponse,
 	err error,
 ) {
+    if isDebug{
+        log.Printf(req.Body)
+    }
+
 	var input Request
 	err = lmdrouter.UnmarshalRequest(req, true, &input)
 	if err != nil {
