@@ -220,6 +220,16 @@ export const AboutThisProjectHeader: React.FC = () => {
           site, so please feel free to add more tools or capabilities. :)
         </div>
         <br />
+        <div style={{ wordBreak: "break-word" }}>
+        Looking for Infrastructure-as-Code validation tool? check out {" "}
+          <CustomLink
+            href="https://www.validiac.com/"
+            target="https://www.validiac.com/"
+          >
+            validiac.com
+          </CustomLink>
+        </div>
+        <br />
         <BrOnlyOnPc />
       </MainDiv>
     </HeaderContainer>
