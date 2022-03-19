@@ -1,11 +1,12 @@
 package api
 
 import (
-	"os"
+    "fmt"
+    "os"
 	"os/exec"
 )
 
-var TFSecExec = ""
+var TFSecExec = getEnv("TFSEC_EXEC", fmt.Sprintf("%s/tfsec", BIN_PATH))
 
 func TFSec(in []byte) ([]byte, error) {
 	path, err := asTempDir(".tf", in)

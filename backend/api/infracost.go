@@ -7,7 +7,7 @@ import (
     "os/exec"
 )
 
-var InfraCostExec = ""
+var InfraCostExec = getEnv("INFRACOST_EXEC", fmt.Sprintf("%s/infracost", BIN_PATH))
 
 func InfraCost(in []byte) ([]byte, error) {
     var infraCostApiKey = funk.GetOrElse(os.Getenv("INFRACOST_API_KEY"), "infracost-api-key")

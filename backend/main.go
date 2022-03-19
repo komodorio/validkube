@@ -46,6 +46,11 @@ func main() {
 		// we are running in an AWS Lambda function
 		lambda.Start(router.Handler)
 	} else {
+        var _, err = api.Init()
+        if err != nil{
+            os.Stdout.Write([]byte("could not init binaries"))
+        }
+
 		// we are running from the command line
 		var cli struct {
 			Cmd  string `arg:"" optional:"" help:"Command to run (lint, secure, map, cost)"`

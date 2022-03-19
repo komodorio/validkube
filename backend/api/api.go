@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"io/ioutil"
+    "os"
 )
 
 type Tool string
@@ -44,4 +45,12 @@ func asTempDir(ext string, in []byte) (path string, err error) {
 	}
 
 	return dir, nil
+}
+
+func getEnv(key, defaultValue string) string {
+    value := os.Getenv(key)
+    if len(value) == 0 {
+        return defaultValue
+    }
+    return value
 }

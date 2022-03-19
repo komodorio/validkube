@@ -5,7 +5,7 @@ RUN mkdir -p ${BIN_DIR}
 ENV GOOS=linux
 ENV GOARCH=amd64
 WORKDIR /validiac
-COPY go.mod go.sum Makefile ./
+COPY go.mod go.sum Makefile .tflint.hcl ./
 RUN go mod download
 RUN make -e deps
 COPY backend/ ./backend/
@@ -17,4 +17,6 @@ FROM alpine:3.14
 RUN apk add -u ca-certificates git
 COPY --from=0 /validiac/bin/* /validiac/bin/
 ENV HOME="/validiac/bin/"
+ENV BIN_PATH="/validiac/bin/"
+RUN /validiac/bin/tflint --init -c /validiac/bin/.tflint.hcl
 ENTRYPOINT ["/bin/sh", "-c", "'/validiac/bin/validiac'"]

@@ -1,11 +1,12 @@
 package api
 
 import (
-	"os"
-	"os/exec"
+    "fmt"
+    "os"
+    "os/exec"
 )
 
-var InfraMapExec = ""
+var InfraMapExec = getEnv("INFRAMAP_EXEC",  fmt.Sprintf("%s/inframap", BIN_PATH))
 
 func InfraMap(in []byte) ([]byte, error) {
 	path, err := asTempFile("", "", in)
