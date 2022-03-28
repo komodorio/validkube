@@ -5,7 +5,7 @@ provider:
   ecr:
     images:
       validkube:
-        path: ./     
+        path: ./
   lambdaHashingVersion: "20201221"
   runtime: go1.x
   stage: production
@@ -51,7 +51,15 @@ functions:
       - http:
           path: /kubeval
           method: post
-          cors: true          
+          cors: true
+  Polaris:
+    image:
+      name: validkube
+    events:
+      - http:
+          path: /polaris
+          method: post
+          cors: true
 
 resources:
   - ${file(s3-bucket.yml)}

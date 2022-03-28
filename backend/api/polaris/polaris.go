@@ -1,4 +1,4 @@
-package kubeval
+package polaris
 
 import (
 	"fmt"
@@ -12,10 +12,10 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-const Path = "/kubeval"
+const Path = "/polaris"
 const Method = routing.POST
 
-func kubevalWrapper(inputYaml []byte) ([]byte, error) {
+func polarisWrapper(inputYaml []byte) ([]byte, error) {
 	err := utils.CreateDirectory("/tmp/yaml")
 	if err != nil {
 		return nil, err
@@ -25,13 +25,14 @@ func kubevalWrapper(inputYaml []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	outputFromKubevalAsJson, _ := exec.Command("kubeval", "-o", "json", "/tmp/yaml/target_yaml.yaml").Output()
 
-	outputFromKubevalAsYaml, err := yaml.JSONToYAML(outputFromKubevalAsJson)
+	outputFromPolarisAsJson, _ := exec.Command("polaris", "audit", "--audit-path", "/tmp/yaml/target_yaml.yaml", "-f=json").Output()
+
+	outputFromPolarisAsYaml, err := yaml.JSONToYAML(outputFromPolarisAsJson)
 	if err != nil {
 		return nil, err
 	}
-	return outputFromKubevalAsYaml, nil
+	return outputFromPolarisAsYaml, nil
 }
 
 func ProcessRequest(c *gin.Context) {
@@ -47,10 +48,10 @@ func ProcessRequest(c *gin.Context) {
 		return
 	}
 	yamlAsInterface := bodyAsMap["yaml"]
-	kubevalOutput, err := kubevalWrapper(utils.InterfaceToBytes(yamlAsInterface))
+	polarisOutput, err := polarisWrapper(utils.InterfaceToBytes(yamlAsInterface))
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"data": "", "err": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": string(kubevalOutput), "err": nil})
+	c.JSON(http.StatusOK, gin.H{"data": string(polarisOutput), "err": nil})
 }
