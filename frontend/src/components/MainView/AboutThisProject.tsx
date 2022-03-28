@@ -168,7 +168,7 @@ export const AboutThisProjectHeader: React.FC = () => {
       url: " https://github.com/aquasecurity/trivy",
     },
     {
-      action: "Polaris",
+      action: "Audit",
       description: "-Validation of best practices for your yaml @",
       shortName: "polaris",
       url: " https://github.com/FairwindsOps/polaris",
@@ -227,7 +227,7 @@ export const AboutThisProjectHeader: React.FC = () => {
         </div>
         <br />
         <div style={{ wordBreak: "break-word" }}>
-        Looking for Infrastructure-as-Code validation tool? check out {" "}
+          Looking for Infrastructure-as-Code validation tool? check out{" "}
           <CustomLink
             href="https://www.validiac.com/"
             target="https://www.validiac.com/"
