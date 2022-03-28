@@ -9,9 +9,12 @@ Validkube combines the best open-source tools to help ensure Kubernetes YAML bes
 
 ### Capabilities:
 
+Policies - combination of security and best practices.
+
 - **Validate** - Verify your Kubernetes configuration files @[kubeval](https://github.com/instrumenta/kubeval)
 - **Clean** - Remove clutter from your Kubernetes manifests @[kubectl-neat](https://github.com/itaysk/kubectl-neat)
-- **Secure** - Scan your YAML code for security vulnerabilities @[trivy](https://github.com/aquasecurity/trivy)
+- **Trivy (policies)** - Scan your YAML code for security vulnerabilities @[trivy](https://github.com/aquasecurity/trivy)
+- **Polaris (policies)** - Validation of best practices in your Kubernetes clusters @[polaris](https://github.com/FairwindsOps/polaris)
 
 Validkube is an open-source site, so please feel free to add more tools or capabilities. :)
 
@@ -29,10 +32,16 @@ Validkube is an open-source site, so please feel free to add more tools or capab
 
 ---
 
-Deploy backend:
+Full deploy:
 
 ```bash
     make deploy
+```
+
+Deploy backend:
+
+```bash
+    make deploy-backend
 ```
 
 In order to update web domain:
@@ -44,8 +53,7 @@ In order to update web domain:
 Deploy frontend:
 
 ```bash
-    cd frontend
-    make deploy
+    make deploy-frontend
 ```
 
 ## Local environment
