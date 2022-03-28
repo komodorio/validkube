@@ -9,7 +9,7 @@ Validkube combines the best open-source tools to help ensure Kubernetes YAML bes
 
 ### Capabilities:
 
-Policies - combination of security and best practices.
+Policies - A combination of security and best practices.
 
 - **Validate** - Verify your Kubernetes configuration files @[kubeval](https://github.com/instrumenta/kubeval)
 - **Clean** - Remove clutter from your Kubernetes manifests @[kubectl-neat](https://github.com/itaysk/kubectl-neat)
