@@ -19,5 +19,11 @@ run-container-local:
 start-local-backend:
 	go run backend/development/localdev.go
 
-deploy: clean build
+deploy-backend: clean build
 	sls deploy --verbose
+
+deploy-frontend:
+	cd frontend && $(MAKE) deploy
+
+deploy: deploy-backend deploy-frontend
+	echo "Deploying BE and FE"
