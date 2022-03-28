@@ -76,7 +76,7 @@ const NewYaml: React.FC<NewYamlProps> = ({
   curTab,
   setCurTab,
 }) => {
-  const tabs = ["Validate", "Clean", "Trivy (policies)", "Polaris (policies)"];
+  const tabs = ["Validate", "Clean", "Secure (Trivy)", "Audit (Polaris)"];
 
   return (
     <Container>
