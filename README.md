@@ -13,8 +13,8 @@ Policies - combination of security and best practices.
 
 - **Validate** - Verify your Kubernetes configuration files @[kubeval](https://github.com/instrumenta/kubeval)
 - **Clean** - Remove clutter from your Kubernetes manifests @[kubectl-neat](https://github.com/itaysk/kubectl-neat)
-- **Trivy (policies)** - Scan your YAML code for security vulnerabilities @[trivy](https://github.com/aquasecurity/trivy)
-- **Polaris (policies)** - Validation of best practices in your Kubernetes clusters @[polaris](https://github.com/FairwindsOps/polaris)
+- **Secure (Trivy)** - Scan your YAML code for security vulnerabilities @[trivy](https://github.com/aquasecurity/trivy)
+- **Audit (Polaris)** - Enforce best practices in your Kubernetes clusters @[polaris](https://github.com/FairwindsOps/polaris)
 
 Validkube is an open-source site, so please feel free to add more tools or capabilities. :)
 
