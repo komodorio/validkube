@@ -13,6 +13,7 @@ import (
 	"github.com/aquasecurity/lmdrouter"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/gabriel-vasile/mimetype"
 	"github.com/gofireflyio/validiac/backend/api"
 )
 
@@ -36,9 +37,28 @@ func init() {
 		isLambda = true
 	}
 
-    if _, ok := os.LookupEnv("IS_DEBUG"); ok {
-        isDebug = true
-    }
+	if _, ok := os.LookupEnv("IS_DEBUG"); ok {
+		isDebug = true
+	}
+}
+
+type cliOpts struct {
+	Lint struct {
+		Path string `arg:"" help:"Path of file to run on"`
+	} `cmd help:"Lint using tflint"`
+	Secure struct {
+		Path string `arg:"" help:"Path of file to run on"`
+	} `cmd help:"Check for security issues using tfsec"`
+	Map struct {
+		Path string `arg:"" help:"Path of file to run on"`
+		Png  bool   `help:"Generate a png representation (writes to stdout)"`
+	} `cmd help:"Generate a graph using inframap"`
+	Cost struct {
+		Path string `arg:"" help:"Path of file to run on"`
+	} `cmd help:"Calculate cloud costs using infracost"`
+	Server struct {
+		Port int `help:"Port to listen on" default:8080`
+	} `cmd default:"1" help:"Run as an HTTP server"`
 }
 
 func main() {
@@ -46,24 +66,21 @@ func main() {
 		// we are running in an AWS Lambda function
 		lambda.Start(router.Handler)
 	} else {
-        var _, err = api.Init()
-        if err != nil{
-            os.Stdout.Write([]byte("could not init binaries"))
-        }
-
 		// we are running from the command line
-		var cli struct {
-			Cmd  string `arg:"" optional:"" help:"Command to run (lint, secure, map, cost)"`
-			Path string `arg:"" optional:"" help:"Path of file to run on"`
-			Port int    `help:"Port to listen on if running as HTTP server" default:8080`
+
+		var _, err = api.Init()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "failed initializing binaries: %s\n", err)
 		}
 
-		kong.Parse(&cli)
+		var cli cliOpts
 
-		if cli.Cmd == "" && cli.Path == "" {
-			runLocalServer(cli.Port)
+		ctx := kong.Parse(&cli)
+
+		if ctx.Command() == "server" {
+			runLocalServer(cli.Server.Port)
 		} else {
-			runCLI(cli.Cmd, cli.Path)
+			runCLI(ctx, cli)
 		}
 	}
 }
@@ -79,28 +96,44 @@ func runLocalServer(port int) {
 	}
 }
 
-func runCLI(cmdName, path string) {
-	var cmd api.ToolFunc
+func runCLI(ctx *kong.Context, cli cliOpts) {
+	var out []byte
+	var err error
 
-	switch cmdName {
-	case "lint":
-		cmd = api.TFLint
-	case "secure":
-		cmd = api.TFSec
-	case "map":
-		cmd = api.InfraMap
-	case "cost":
-		cmd = api.InfraCost
+	switch ctx.Command() {
+	case "lint <path>":
+		in, err := os.ReadFile(cli.Lint.Path)
+		if err != nil {
+			log.Fatalf("Failed reading %s: %s", cli.Lint.Path, err)
+		}
+
+		out, err = api.TFLint(in)
+	case "secure <path>":
+		in, err := os.ReadFile(cli.Secure.Path)
+		if err != nil {
+			log.Fatalf("Failed reading %s: %s", cli.Secure.Path, err)
+		}
+
+		out, err = api.TFSec(in)
+	case "map <path>":
+		in, err := os.ReadFile(cli.Map.Path)
+		if err != nil {
+			log.Fatalf("Failed reading %s: %s", cli.Map.Path, err)
+		}
+
+		out, err = api.InfraMap(in, api.InfraMapOpts{
+			Png: cli.Map.Png,
+		})
+	case "cost <path>":
+		in, err := os.ReadFile(cli.Cost.Path)
+		if err != nil {
+			log.Fatalf("Failed reading %s: %s", cli.Cost.Path, err)
+		}
+
+		out, err = api.InfraCost(in)
 	default:
-		log.Fatalf("Invalid command %s", cmdName)
+		log.Fatalf("Invalid command %s", ctx.Command())
 	}
-
-	in, err := os.ReadFile(path)
-	if err != nil {
-		log.Fatalf("Failed reading %s: %s", path, err)
-	}
-
-	out, err := cmd(in)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Fatal error: %s\n", err)
@@ -117,9 +150,9 @@ func lint(ctx context.Context, req events.APIGatewayProxyRequest) (
 	res events.APIGatewayProxyResponse,
 	err error,
 ) {
-    if isDebug{
-        log.Printf(req.Body)
-    }
+	if isDebug {
+		log.Printf(req.Body)
+	}
 
 	var input Request
 	err = lmdrouter.UnmarshalRequest(req, true, &input)
@@ -150,9 +183,9 @@ func cost(ctx context.Context, req events.APIGatewayProxyRequest) (
 	res events.APIGatewayProxyResponse,
 	err error,
 ) {
-    if isDebug{
-        log.Printf(req.Body)
-    }
+	if isDebug {
+		log.Printf(req.Body)
+	}
 
 	var input Request
 	err = lmdrouter.UnmarshalRequest(req, true, &input)
@@ -164,12 +197,12 @@ func cost(ctx context.Context, req events.APIGatewayProxyRequest) (
 		return handleToolError(out, err)
 	}
 
-    //Trimming empty lines
+	//Trimming empty lines
 	var outputTxt = strings.Trim(string(out), "\n")
-    //Removing the first line
-	outputTxt = strings.Join( strings.Split(outputTxt, "\n")[1:], "\n")
-    //Trimming empty lines
-    outputTxt = strings.Trim(outputTxt, "\n")
+	//Removing the first line
+	outputTxt = strings.Join(strings.Split(outputTxt, "\n")[1:], "\n")
+	//Trimming empty lines
+	outputTxt = strings.Trim(outputTxt, "\n")
 	return parseOutput(http.StatusOK, []byte(outputTxt))
 }
 
@@ -177,9 +210,9 @@ func secure(ctx context.Context, req events.APIGatewayProxyRequest) (
 	res events.APIGatewayProxyResponse,
 	err error,
 ) {
-    if isDebug{
-        log.Printf(req.Body)
-    }
+	if isDebug {
+		log.Printf(req.Body)
+	}
 
 	var input Request
 	err = lmdrouter.UnmarshalRequest(req, true, &input)
@@ -200,21 +233,28 @@ func secure(ctx context.Context, req events.APIGatewayProxyRequest) (
 	return parseOutput(http.StatusOK, out)
 }
 
+type InfraMapRequest struct {
+	Png bool `json:"png"`
+	*Request
+}
+
 func graph(ctx context.Context, req events.APIGatewayProxyRequest) (
 	res events.APIGatewayProxyResponse,
 	err error,
 ) {
-    if isDebug{
-        log.Printf(req.Body)
-    }
+	if isDebug {
+		log.Printf(req.Body)
+	}
 
-	var input Request
+	var input InfraMapRequest
 	err = lmdrouter.UnmarshalRequest(req, true, &input)
 	if err != nil {
 		return lmdrouter.HandleError(err)
 	}
 
-	out, err := api.InfraMap([]byte(input.HCL))
+	out, err := api.InfraMap([]byte(input.HCL), api.InfraMapOpts{
+		Png: input.Png,
+	})
 	if err != nil {
 		return handleToolError(out, err)
 	}
@@ -234,10 +274,12 @@ func handleToolError(out []byte, err error) (
 }
 
 func parseOutput(status int, out []byte) (events.APIGatewayProxyResponse, error) {
+	mtype := mimetype.Detect(out)
+
 	return events.APIGatewayProxyResponse{
 		StatusCode: status,
 		Headers: map[string]string{
-			"Content-Type": "text/plain",
+			"Content-Type": mtype.String(),
 		},
 		Body: string(out),
 	}, nil

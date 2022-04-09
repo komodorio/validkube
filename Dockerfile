@@ -14,7 +14,7 @@ RUN make -e build && make -e test
 RUN chmod +x ./bin/validiac
 
 FROM alpine:3.14
-RUN apk add -u ca-certificates git
+RUN apk add -u ca-certificates git graphviz
 COPY --from=0 /validiac/bin/* /validiac/bin/
 ENV HOME="/validiac/bin/"
 ENV BIN_PATH="/validiac/bin/"

@@ -1,8 +1,8 @@
 package api
 
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
 	"os/exec"
 )
 

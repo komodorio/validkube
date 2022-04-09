@@ -3,19 +3,25 @@ package api
 import (
 	"fmt"
 	"io/ioutil"
-    "os"
+	"os"
 )
 
+// Tool represents the name of a third-party tool support by validiac
 type Tool string
 
 const (
-	ToolTFLint    Tool = "tflint"
-	ToolTFSec     Tool = "tfsec"
-	ToolInfracost Tool = "infracost"
-	ToolInframap  Tool = "inframap"
-)
+	// ToolTFLint represents the tflint tool
+	ToolTFLint Tool = "tflint"
 
-type ToolFunc func(in []byte) (out []byte, err error)
+	// ToolTFSec represents the tfsec tool
+	ToolTFSec Tool = "tfsec"
+
+	// ToolInfracost represents the infracost tool
+	ToolInfracost Tool = "infracost"
+
+	// ToolInframap represents the inframap tool
+	ToolInframap Tool = "inframap"
+)
 
 func asTempFile(dir, ext string, in []byte) (path string, err error) {
 	tmpfile, err := ioutil.TempFile(dir, fmt.Sprintf("validiac-*%s", ext))
@@ -48,9 +54,9 @@ func asTempDir(ext string, in []byte) (path string, err error) {
 }
 
 func getEnv(key, defaultValue string) string {
-    value := os.Getenv(key)
-    if len(value) == 0 {
-        return defaultValue
-    }
-    return value
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return defaultValue
+	}
+	return value
 }
