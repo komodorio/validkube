@@ -5,7 +5,6 @@ import (
     "github.com/hashicorp/hcl2/hcl/hclsyntax"
     "github.com/hashicorp/hcl2/hclparse"
     "github.com/thoas/go-funk"
-    "log"
     "os"
     "os/exec"
     "strings"
@@ -22,7 +21,10 @@ func TFLint(in []byte) ([]byte, error) {
 
     defer os.RemoveAll(path)
 
-	var hasAWS, hasAzure, hasGoogle = extractActiveProviders(in)
+	err, hasAWS, hasAzure, hasGoogle := extractActiveProviders(in)
+    if err != nil{
+        return nil, err
+    }
 
     var args = []string{}
     //Adding config args if one of the providers is enabled
@@ -53,11 +55,11 @@ func tflintInit() ([]byte, error) {
     return cmd.CombinedOutput()
 }
 
-func extractActiveProviders(hcl []byte) (bool, bool, bool) {
+func extractActiveProviders(hcl []byte) (error, bool, bool, bool) {
     parser := hclparse.NewParser()
     f, parseDiags := parser.ParseHCL(hcl, "")
     if parseDiags.HasErrors() {
-        log.Fatal(parseDiags.Error())
+        return fmt.Errorf("failed creating temp file: %s", parseDiags.Error()), false, false, false
     }
 
     var hasAWS = false
@@ -81,5 +83,5 @@ func extractActiveProviders(hcl []byte) (bool, bool, bool) {
         }
     })
 
-    return hasAWS, hasAzure, hasGoogle
+    return nil ,hasAWS, hasAzure, hasGoogle
 }
