@@ -4,8 +4,8 @@ go 1.17
 
 require (
 	github.com/alecthomas/kong v0.5.0
-	github.com/aquasecurity/lmdrouter v0.4.4
-	github.com/aws/aws-lambda-go v1.28.0
+	github.com/aquasecurity/lmdrouter v0.4.5-rc
+	github.com/aws/aws-lambda-go v1.29.0
 	github.com/gabriel-vasile/mimetype v1.4.0
 	github.com/hashicorp/hcl2 v0.0.0-20191002203319-fb75b3253c80
 	github.com/jgroeneveld/trial v2.0.0+incompatible

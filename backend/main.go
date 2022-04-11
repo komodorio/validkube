@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
 	"fmt"
 	"log"
 	"net/http"
@@ -276,13 +277,21 @@ func handleToolError(out []byte, err error) (
 func parseOutput(status int, out []byte) (events.APIGatewayProxyResponse, error) {
 	mtype := mimetype.Detect(out)
 
-	return events.APIGatewayProxyResponse{
+	event := events.APIGatewayProxyResponse{
 		StatusCode: status,
 		Headers: map[string]string{
 			"Content-Type": mtype.String(),
 		},
-		Body: string(out),
-	}, nil
+	}
+
+	if isBinary(mtype) {
+		event.Body = base64.StdEncoding.EncodeToString(out)
+		event.IsBase64Encoded = true
+	} else {
+		event.Body = string(out)
+	}
+
+	return event, nil
 }
 
 func cors(ctx context.Context, req events.APIGatewayProxyRequest) (
@@ -312,4 +321,14 @@ func corsMiddleware(next lmdrouter.Handler) lmdrouter.Handler {
 		res.Headers["Allow"] = "POST, OPTIONS"
 		return res, err
 	}
+}
+
+func isBinary(detectedMIME *mimetype.MIME) bool {
+	for mtype := detectedMIME; mtype != nil; mtype = mtype.Parent() {
+		if mtype.Is("text/plain") {
+			return false
+		}
+	}
+
+	return true
 }
