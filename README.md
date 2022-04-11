@@ -1,11 +1,23 @@
 # validiac
 
-### About this project
+**ValidIaC combines the best open-source tools to help ensure Terraform best
+practices, hygiene & security.**
 
-ValidIaC combines the best open-source tools to help ensure Terraform best
-practices, hygiene & security.
+## Contents
 
-### Capabilities:
+<!-- vim-markdown-toc GFM -->
+
+* [Capabilities](#capabilities)
+* [Usage](#usage)
+    * [CLI Usage](#cli-usage)
+    * [HTTP Server Usage](#http-server-usage)
+    * [AWS Lambda Usage](#aws-lambda-usage)
+* [Development](#development)
+    * [Upgrading Dependency Versions](#upgrading-dependency-versions)
+
+<!-- vim-markdown-toc -->
+
+## Capabilities
 
 - **Lint** - Lint your Terraform HCL files with [tflint](https://github.com/terraform-linters/tflint)
 - **Secure** - Scan your Terraform templates for security vulnerabilities with [tfsec](https://github.com/aquasecurity/tfsec)
@@ -18,17 +30,7 @@ A free online instance of ValidIaC is available for anyone to use at https://www
 The program can both be deployed as an AWS Lambda function, or be used directly
 from the command line.
 
-## Prerequisites
-
----
-
-- AWS CLI with access to your AWS
-- Yarn
-- NPM
-- Serverless CLI
-- Golang v1.17
-
-## CLI/Local Server Usage
+## Usage
 
 The `validiac` binary can be used in three different ways:
 
@@ -38,17 +40,32 @@ The `validiac` binary can be used in three different ways:
 
 To compile the binary:
 
-1. Download dependencies with `make deps`
-2. Build validiac with `make build`
-3. Run validiac: `bin/validiac --help`
+1. Install [Graphviz](https://graphviz.org/download/#executable-packages) via your package manager.
+2. Download static dependencies with `make deps`
+3. Build validiac with `make build`
 
-Other make tasks:
-- run unit tests: `make test`
-- run static code analysis: `make lint` (requires [golangci-lint](https://golangci-lint.run/))
-- clean validiac binary: `make clean`
-- clean all binaries, including dependencies: `make clean-all`
+### CLI Usage
 
-## Upgrading Dependency Versions
+Run `bin/validiac --help` for complete usage instructions. Example: `bin/validiac --png plan.tf > plan.png`
+
+### HTTP Server Usage
+
+Simply execute `bin/validiac` without any arguments. By default, the server will
+listen on all addresses at port 8080. Supply a different port with `--port`.
+
+### AWS Lambda Usage
+
+Build the Docker image with `make docker` and deploy to a Lambda environment.
+
+## Development
+
+- Download static dependencies with `make deps`
+- Run unit tests with `make test`
+- Run static code analysis with `make lint` (requires [golangci-lint](https://golangci-lint.run/))
+- Remove validiac binary with `make clean`
+- Remove all binaries (including static dependencies) with `make clean-all`
+
+### Upgrading Dependency Versions
 
 The versions used for the four base tools are defined in the [Makefile](Makefile).
 Simply change the version number of the relevant tool and rebuild (the validiac
