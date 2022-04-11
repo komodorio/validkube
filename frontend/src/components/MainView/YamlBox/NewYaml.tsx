@@ -12,18 +12,14 @@ import { SmallBr } from "../AboutThisProject";
 import {
   CodeEditorContainer,
   StyledHr,
-  StyledTextAreaCss,
   TextAreaContainer,
 } from "./YamlBoxComponents";
-import CodeEditor from "@uiw/react-textarea-code-editor";
-
-export const API_ENDPOINTS = [
-  "kubeval",
-  "kubeneat",
-  "trivy",
-  "polaris",
-  "kubescape",
-];
+import { StreamLanguage } from "@codemirror/stream-parser";
+import { yaml } from "@codemirror/legacy-modes/mode/yaml";
+import CodeMirror from '@uiw/react-codemirror';
+import { komodo } from "./CodemirrorKomodorTheme"
+import { EditorView } from "@codemirror/view";
+export const API_ENDPOINTS = ["kubeval", "kubeneat", "trivy", "polaris","kubescape", "trivy/vulnerability", "trivy/sbom"];
 
 const Container = styled.div``;
 
@@ -82,13 +78,7 @@ const NewYaml: React.FC<NewYamlProps> = ({
   curTab,
   setCurTab,
 }) => {
-  const tabs = [
-    "Validate",
-    "Clean",
-    "Secure (Trivy)",
-    "Audit (Polaris)",
-    "Secure (Kubescape)",
-  ];
+  const tabs = ["Validate", "Clean", "Secure (Trivy)", "Audit (Polaris)","Secure (Kubescape)","Image (Trivy)","SBOM (Trivy)"];
 
   return (
     <Container>
@@ -113,12 +103,12 @@ const NewYaml: React.FC<NewYamlProps> = ({
           </ErrorContainer>
         ) : (
           <CodeEditorContainer>
-            <CodeEditor
-              language="yaml"
+            <CodeMirror
               value={yamlOutput}
+              extensions={[komodo,StreamLanguage.define(yaml), EditorView.lineWrapping]}
               placeholder="here is where the magic happens"
-              padding={15}
-              style={StyledTextAreaCss}
+              theme={"dark"}
+              editable={true}
             />
           </CodeEditorContainer>
         )}

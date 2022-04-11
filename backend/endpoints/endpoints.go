@@ -33,9 +33,19 @@ var Endpoints = []Endpoint{
 		Function: kubeval.ProcessRequest,
 	},
 	{
-		Path:     trivy.Path,
+		Path:     trivy.PathConfig,
 		Method:   trivy.Method,
-		Function: trivy.ProcessRequest,
+		Function: trivy.ProcessRequestConfig,
+	},
+	{
+		Path:     trivy.PathVulnerability,
+		Method:   trivy.Method,
+		Function: trivy.ProcessRequestVulnerability,
+	},
+	{
+		Path:     trivy.PathSBOM,
+		Method:   trivy.Method,
+		Function: trivy.ProcessRequestSBOM,
 	},
 	{
 		Path:     polaris.Path,

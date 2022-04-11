@@ -4,14 +4,17 @@ import { BlackTransparentButton } from "../../GenericComponents/BlackTransparent
 import { BlueButton } from "../../GenericComponents/BlueButton";
 import { NGINX_YAML } from "../manifest/manifest_examples";
 import { API_ENDPOINTS } from "./NewYaml";
-import CodeEditor from "@uiw/react-textarea-code-editor";
+import CodeMirror from '@uiw/react-codemirror';
+import {komodo} from "./CodemirrorKomodorTheme"
+import { EditorView } from "@codemirror/view";
 
 import {
   CodeEditorContainer,
   StyledHr,
-  StyledTextAreaCss,
   TextAreaContainer,
 } from "./YamlBoxComponents";
+import {StreamLanguage} from "@codemirror/stream-parser";
+import {yaml} from "@codemirror/legacy-modes/mode/yaml";
 
 const Header = styled.div`
   color: white;
@@ -55,16 +58,16 @@ const MyYaml: React.FC<MyYamlProps> = ({
       <br />
       <TextAreaContainer>
         <CodeEditorContainer>
-          <CodeEditor
-            language="yaml"
+          <CodeMirror
             placeholder="drop your existing yaml here"
             value={textAreaValue}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-              setExistingYamlTextArea(e.target.value);
-              setTextAreaValue(e.target.value);
+            onChange={(value, viewUpdate) => {
+              setExistingYamlTextArea(value);
+              setTextAreaValue(value);
             }}
-            padding={15}
-            style={StyledTextAreaCss}
+            extensions={[komodo,StreamLanguage.define(yaml), EditorView.lineWrapping]}
+            theme={"dark"}
+            editable={true}
           />
         </CodeEditorContainer>
         <StyledHr />
