@@ -26,10 +26,7 @@ func InfraMap(in []byte, opts InfraMapOpts) ([]byte, error) {
 		"--show-icons=true",
 		"--connections=false",
 		"--clean=false",
-	}
-
-	if !opts.Png {
-		args = append(args, "--raw")
+		"--raw",
 	}
 
 	cmd := exec.Command(InfraMapExec, append(args, path)...)
