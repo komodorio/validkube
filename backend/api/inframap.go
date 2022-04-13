@@ -2,9 +2,9 @@ package api
 
 import (
 	"fmt"
-	"io"
 	"os"
 	"os/exec"
+	"regexp"
 )
 
 var InfraMapExec = getEnv("INFRAMAP_EXEC", fmt.Sprintf("%s/inframap", BIN_PATH))
@@ -26,58 +26,47 @@ func InfraMap(in []byte, opts InfraMapOpts) ([]byte, error) {
 		"--show-icons=true",
 		"--connections=false",
 		"--clean=false",
-		"--raw",
 	}
 
-	cmd := exec.Command(InfraMapExec, append(args, path)...)
+	if !opts.Png {
+		args = append(args, "--raw")
+	}
+
+	out, err := exec.Command(InfraMapExec, append(args, path)...).CombinedOutput()
+	if err != nil {
+		return nil, fmt.Errorf("inframap failed: %s", string(out))
+	}
 
 	if opts.Png {
-		// get a pipe of stdout, we're going to pipe output to dot (from graphviz)
-		stdout, err := cmd.StdoutPipe()
-		if err != nil {
-			return nil, fmt.Errorf("failed getting stdout pipe of inframap: %w", err)
-		}
-
-		if err = cmd.Start(); err != nil {
-			return nil, fmt.Errorf("failed starting inframap: %w", err)
-		}
-
-		dot := exec.Command("dot", "-Tpng")
-		stdin, err := dot.StdinPipe()
-		if err != nil {
-			return nil, fmt.Errorf("failed getting stdin pipe for dot: %w", err)
-		}
-
-		var pipeErr error
-
-		go func() {
-			defer stdin.Close()
-
-			// copy from inframap's stdout to dot's stdin
-			r := io.TeeReader(stdout, stdin)
-			if _, err := io.ReadAll(r); err != nil {
-				pipeErr = fmt.Errorf("failed reading from inframap: %w", err)
-				return
+		// InfraMap can return empty graphs under certain conditions (see
+		// https://github.com/cycloidio/inframap#why-is-my-graph-generated-empty
+		// for more information). Since we cannot currently anticipate ahead of
+		// time which HCL/state files will trigger this, we will work around
+		// this by falling back to using --raw, which will usually return a
+		// graph, but will not have fancy icons and such.
+		if emptyGraph.Match(out) {
+			args = append(args, "--raw")
+			out, err = exec.Command(InfraMapExec, append(args, path)...).CombinedOutput()
+			if err != nil {
+				return nil, fmt.Errorf("inframap failed: %s", string(out))
 			}
+		}
 
-			// wait for inframap to exit
-			if err = cmd.Wait(); err != nil {
-				pipeErr = fmt.Errorf("inframap failed: %w", err)
-				return
-			}
-		}()
-
-		out, err := dot.CombinedOutput()
+		// put the output into a temporary file
+		graphPath, err := asTempFile("", "", out)
 		if err != nil {
-			return nil, fmt.Errorf("dot failed: %w", err)
+			return nil, fmt.Errorf("failed creating temp file for png generation: %w", err)
 		}
 
-		if pipeErr != nil {
-			return nil, pipeErr
-		}
+		defer os.Remove(graphPath) // nolint: errcheck
 
-		return out, nil
+		out, err = exec.Command("dot", "-Tpng", graphPath).Output()
+		if err != nil {
+			return nil, parseExitError(err, "dot failed")
+		}
 	}
 
-	return cmd.CombinedOutput()
+	return out, nil
 }
+
+var emptyGraph = regexp.MustCompile(`^\s*strict digraph G {\s*}\s*$`)

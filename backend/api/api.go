@@ -1,9 +1,11 @@
 package api
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 )
 
 // Tool represents the name of a third-party tool support by validiac
@@ -59,4 +61,13 @@ func getEnv(key, defaultValue string) string {
 		return defaultValue
 	}
 	return value
+}
+
+func parseExitError(err error, prefix string) error {
+	var exitErr *exec.ExitError
+	if errors.Is(err, exitErr) && len(exitErr.Stderr) > 0 {
+		return fmt.Errorf("%s: %s", prefix, string(exitErr.Stderr))
+	}
+
+	return fmt.Errorf("%s: %w", prefix, err)
 }
