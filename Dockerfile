@@ -22,4 +22,4 @@ ENV BIN_PATH="/validiac/bin/"
 RUN /validiac/bin/tflint --init -c /validiac/bin/.tflint.hcl
 ENV XDG_CACHE_HOME="/tmp/.cache"
 ENV XDG_DATA_HOME="/tmp/.data"
-ENTRYPOINT ["/bin/sh", "-c", "'/validiac/bin/validiac'"]
+ENTRYPOINT ["/validiac/bin/validiac"]

@@ -57,6 +57,32 @@ listen on all addresses at port 8080. Supply a different port with `--port`.
 
 Build the Docker image with `make docker` and deploy to a Lambda environment.
 
+### Use with Docker
+
+As an alternative to installing and running ValidIaC on your system, you may run ValidIaC in a Docker container.
+
+To run:
+- :Build Docker (from local directory)
+```bash
+docker build -t validiac .
+```
+
+- :Run ValidIaC as CLI, read hcl files from LOCAL_DIRECTORY
+```bash
+#Help
+docker run validiac --help
+#Secure
+docker run --rm -v <LOCAL_DIRECTORY>:/iac validiac secure /iac/<LOCAL_FILE>
+#Cost
+docker run --rm -v <LOCAL_DIRECTORY>:/iac -e INFRACOST_API_KEY="<PUT_HERE_INFRACOST_KEY>" validiac cost /iac/<LOCAL_FILE>
+#Lint 
+docker run --rm -v <LOCAL_DIRECTORY>:/iac validiac lint /iac/<LOCAL_FILE>
+#Map (adding --png argument returns it as an image with icons)
+docker run --rm -v <LOCAL_DIRECTORY>:/iac validiac map /iac/<LOCAL_FILE>
+#Running ValidIaC as a server listening to port 8080
+docker run -p 8080:8080 -e INFRACOST_API_KEY="<PUT_HERE_INFRACOST_KEY>" validiac
+```
+
 ## Development
 
 - Download static dependencies with `make deps`
