@@ -8,6 +8,7 @@ import {
 } from "./AboutThisProject";
 import ExistingHcl from "./iacBox/ExistingHcl";
 import ValidatorResults from "./iacBox/ValidatorResults";
+import FireflyPopup from "./FireflyPopup";
 
 const TextaresContainer = styled.div`
   display: grid;
@@ -38,6 +39,7 @@ const MainView: React.FC = () => {
   const [fetching, setFetching] = useState(false);
   const [err, setErr] = useState<any>();
   const [curTab, setCurTab] = useState<number>(0);
+  const [popupOpen, setPopupOpen] = useState<boolean>(true);
 
   const callApiCallabck = useCallback(
     (endpoint: string) => {
@@ -54,6 +56,15 @@ const MainView: React.FC = () => {
     },
     [existingHclTextArea]
   );
+
+  const handleOpen = () => {
+    localStorage.setItem("opened", JSON.stringify({"opened": "true"}));
+    setPopupOpen(true);
+  };
+
+  const handleClose = () => {
+    setPopupOpen(false);
+  };
 
   return (
     <>
@@ -74,6 +85,7 @@ const MainView: React.FC = () => {
             curTab={curTab}
             setCurTab={setCurTab}
           />
+          <FireflyPopup open={popupOpen} onClose={handleClose} />
         </TextaresContainer>
         <BrOnlyOnPc />
       </MainViewBodyContainer>
