@@ -80,6 +80,7 @@ interface ResultsProps {
   callApiCallabck: (endpoint: string) => void;
   curTab: number;
   setCurTab: React.Dispatch<React.SetStateAction<number>>;
+  setTabClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ValidatorResults: React.FC<ResultsProps> = ({

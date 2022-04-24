@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import { callAPI } from "../../services/api-service";
 import MainViewHeader from "./MainViewHeader";
@@ -39,7 +39,12 @@ const MainView: React.FC = () => {
   const [fetching, setFetching] = useState(false);
   const [err, setErr] = useState<any>();
   const [curTab, setCurTab] = useState<number>(0);
-  const [popupOpen, setPopupOpen] = useState<boolean>(true);
+  const [popupOpen, setPopupOpen] = useState<boolean>(() => {
+    const opened = localStorage.getItem("opened") || '{}';
+    const initialValueString = JSON.parse(opened);
+    return initialValueString === "true" ? true : false;
+  });
+  const [tabClicked, setTabClicked] = useState<boolean>(false);
 
   const callApiCallabck = useCallback(
     (endpoint: string) => {
@@ -56,6 +61,10 @@ const MainView: React.FC = () => {
     },
     [existingHclTextArea]
   );
+
+  useEffect(() => {
+    handleOpen();
+  }, []);
 
   const handleOpen = () => {
     localStorage.setItem("opened", JSON.stringify({"opened": "true"}));
@@ -84,6 +93,7 @@ const MainView: React.FC = () => {
             callApiCallabck={callApiCallabck}
             curTab={curTab}
             setCurTab={setCurTab}
+            setTabClicked={setTabClicked}
           />
           <FireflyPopup open={popupOpen} onClose={handleClose} />
         </TextaresContainer>
