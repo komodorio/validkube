@@ -39,12 +39,13 @@ const MainView: React.FC = () => {
   const [fetching, setFetching] = useState(false);
   const [err, setErr] = useState<any>();
   const [curTab, setCurTab] = useState<number>(0);
-  const [popupOpen, setPopupOpen] = useState<boolean>(() => {
-    const opened = localStorage.getItem("opened") || '{}';
-    const initialValueString = JSON.parse(opened);
-    return initialValueString === "true" ? true : false;
-  });
-  const [tabClicked, setTabClicked] = useState<boolean>(false);
+  // const [popupOpen, setPopupOpen] = useState<boolean>(() => {
+  //   const opened = localStorage.getItem("opened") || '{}';
+  //   const initialValueString = JSON.parse(opened);
+  //   return initialValueString === "true" ? true : false;
+  // });
+  const [popupOpen, setPopupOpen] = useState<boolean>(false);
+  const [initialTabClicked, setInitialTabClicked] = useState<boolean | string>("initial");
 
   const callApiCallabck = useCallback(
     (endpoint: string) => {
@@ -63,13 +64,15 @@ const MainView: React.FC = () => {
   );
 
   useEffect(() => {
-    handleOpen();
-  }, []);
+    if (!initialTabClicked) {
+      setPopupOpen(true);
+    }
+  }, [initialTabClicked]);
 
-  const handleOpen = () => {
-    localStorage.setItem("opened", JSON.stringify({"opened": "true"}));
-    setPopupOpen(true);
-  };
+  // const handleOpen = () => {
+  //   localStorage.setItem("opened", JSON.stringify({"opened": "true"}));
+  //   setPopupOpen(true);
+  // };
 
   const handleClose = () => {
     setPopupOpen(false);
@@ -93,7 +96,8 @@ const MainView: React.FC = () => {
             callApiCallabck={callApiCallabck}
             curTab={curTab}
             setCurTab={setCurTab}
-            setTabClicked={setTabClicked}
+            setInitialTabClicked={setInitialTabClicked}
+            initialTabClicked={initialTabClicked}
           />
           <FireflyPopup open={popupOpen} onClose={handleClose} />
         </TextaresContainer>
