@@ -80,8 +80,8 @@ interface ResultsProps {
   callApiCallabck: (endpoint: string) => void;
   curTab: number;
   setCurTab: React.Dispatch<React.SetStateAction<number>>;
-  setInitialTabClicked: React.Dispatch<React.SetStateAction<string | boolean>>;
-  initialTabClicked: boolean | string;
+  setInitialTabClicked: React.Dispatch<React.SetStateAction<boolean>>
+  initialTabClicked: boolean;
 }
 
 const ValidatorResults: React.FC<ResultsProps> = ({
@@ -102,10 +102,8 @@ const ValidatorResults: React.FC<ResultsProps> = ({
         onTabClick={(selectedTab) => {
           setCurTab(selectedTab);
           callApiCallabck(API_ENDPOINTS[selectedTab]);
-          if (initialTabClicked === "initial") {
+          if (!initialTabClicked) {
             setInitialTabClicked(true);
-          } else {
-            setInitialTabClicked(false);
           }
         }}
       />
