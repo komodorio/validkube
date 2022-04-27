@@ -8,6 +8,7 @@ import { ReactComponent as LinkedinIcon } from "./assets/LinkedinIcon.svg";
 import { ReactComponent as TwitterIcon } from "./assets/TwitterIcon.svg";
 
 export const FIREFLY_IO = "https://gofirefly.io/";
+export const FIREFLY_APP = "https://app.gofirefly.io/";
 export const TWITTER_URL = "https://twitter.com/goFireflyio";
 export const LINKEDIN_URL = "https://www.linkedin.com/company/gofireflyio/";
 export const GITHUB_URL = "https://github.com/gofireflyio/validiac";

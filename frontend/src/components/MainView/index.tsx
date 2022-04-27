@@ -41,6 +41,10 @@ const MainView: React.FC = () => {
   const [curTab, setCurTab] = useState<number>(0);
   const [popupOpen, setPopupOpen] = useState<boolean>(false);
   const [initialTabClicked, setInitialTabClicked] = useState<boolean>(false);
+  const [popupStyle, setPopupStyle] = useState<Object>({
+      opacity: 0,
+      transition: "all 0.3s ease-in"
+    });
 
   const callApiCallabck = useCallback(
     (endpoint: string) => {
@@ -63,6 +67,21 @@ const MainView: React.FC = () => {
       setPopupOpen(true);
     }
   }, [initialTabClicked]);
+
+  useEffect(() => {
+    if (popupOpen) {
+      setPopupStyle({
+        opacity: 1,
+        transition: "all 0.3s ease-in"
+      });
+    } else {
+      setPopupStyle({
+        opacity: 0,
+        transition: "all 0.3s ease-in"
+      });
+    }
+    
+  }, [popupOpen]);
 
   const handleClose = () => {
     setPopupOpen(false);
@@ -89,12 +108,12 @@ const MainView: React.FC = () => {
             setInitialTabClicked={setInitialTabClicked}
             initialTabClicked={initialTabClicked}
           />
-          <FireflyPopup open={popupOpen} onClose={handleClose} />
         </TextaresContainer>
         <BrOnlyOnPc />
       </MainViewBodyContainer>
       <AboutThisProjectHeader />
       <AboutThisProjectBottom />
+      <FireflyPopup onClose={handleClose} style={popupStyle} />
     </>
   );
 };
