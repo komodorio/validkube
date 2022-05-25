@@ -17,7 +17,11 @@ run-container-local:
 	docker run -it --entrypoint /bin/bash validkube
 
 start-local-backend:
+	export ALLOWED_ORIGIN=http://localhost:3000
 	go run backend/development/localdev.go
+
+start-local-frontend:
+	cd frontend && yarn start
 
 deploy-backend: clean build
 	sls deploy --verbose

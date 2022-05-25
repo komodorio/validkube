@@ -17,7 +17,13 @@ import {
 } from "./YamlBoxComponents";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 
-export const API_ENDPOINTS = ["kubeval", "kubeneat", "trivy", "polaris"];
+export const API_ENDPOINTS = [
+  "kubeval",
+  "kubeneat",
+  "trivy",
+  "polaris",
+  "kubescape",
+];
 
 const Container = styled.div``;
 
@@ -76,7 +82,13 @@ const NewYaml: React.FC<NewYamlProps> = ({
   curTab,
   setCurTab,
 }) => {
-  const tabs = ["Validate", "Clean", "Secure (Trivy)", "Audit (Polaris)"];
+  const tabs = [
+    "Validate",
+    "Clean",
+    "Secure (Trivy)",
+    "Audit (Polaris)",
+    "Audit (Kubescape)",
+  ];
 
   return (
     <Container>
