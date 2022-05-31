@@ -11,8 +11,7 @@ RUN wget https://github.com/FairwindsOps/polaris/releases/download/5.0.0/polaris
 RUN tar xf polaris_linux_amd64.tar.gz
 RUN cp polaris /usr/local/bin
 
-RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | /bin/bash
-RUN cp kubescape /usr/lcoal/bin
+RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | sh
 
 FROM golang:1.17
 
