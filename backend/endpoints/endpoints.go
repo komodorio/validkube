@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/komodorio/validkube/backend/api/hello"
 	"github.com/komodorio/validkube/backend/api/kubeneat"
+	"github.com/komodorio/validkube/backend/api/kubescape"
 	"github.com/komodorio/validkube/backend/api/kubeval"
 	"github.com/komodorio/validkube/backend/api/polaris"
 	"github.com/komodorio/validkube/backend/api/trivy"
@@ -40,5 +41,10 @@ var Endpoints = []Endpoint{
 		Path:     polaris.Path,
 		Method:   polaris.Method,
 		Function: polaris.ProcessRequest,
+	},
+	{
+		Path:     kubescape.Path,
+		Method:   kubescape.Method,
+		Function: kubescape.ProcessRequest,
 	},
 }

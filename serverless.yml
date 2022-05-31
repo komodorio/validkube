@@ -51,7 +51,7 @@ functions:
       - http:
           path: /kubeval
           method: post
-          cors: true
+          cors: true        
   Polaris:
     image:
       name: validkube
@@ -60,6 +60,14 @@ functions:
           path: /polaris
           method: post
           cors: true
+  Kubescape:
+    image:
+      name: validkube
+    events:
+      - http:
+          path: /kubescape
+          method: post
+          cors: true          
 
 resources:
   - ${file(s3-bucket.yml)}

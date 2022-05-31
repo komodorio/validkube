@@ -11,6 +11,9 @@ RUN wget https://github.com/FairwindsOps/polaris/releases/download/5.0.0/polaris
 RUN tar xf polaris_linux_amd64.tar.gz
 RUN cp polaris /usr/local/bin
 
+RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | /bin/bash
+RUN cp kubescape /usr/lcoal/bin
+
 FROM golang:1.17
 
 ARG FUNCTION_DIR="/var/task"
@@ -25,6 +28,8 @@ COPY --from=deps /usr/local/bin/kubeval /usr/local/bin/kubeval
 RUN chmod +x /usr/local/bin/kubeval
 COPY --from=deps /usr/local/bin/polaris /usr/local/bin/polaris
 RUN chmod +x /usr/local/bin/polaris
+COPY --from=deps /usr/local/bin/kubescape /usr/local/bin/kubescape
+RUN chmod +x /usr/local/bin/kubescape
 
 
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)

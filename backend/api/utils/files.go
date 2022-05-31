@@ -1,6 +1,8 @@
 package utils
 
-import "os"
+import (
+	"os"
+)
 
 func WriteFile(path string, data []byte) error {
 	file, err := os.Create(path)
