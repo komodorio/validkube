@@ -87,7 +87,7 @@ const NewYaml: React.FC<NewYamlProps> = ({
     "Clean",
     "Secure (Trivy)",
     "Audit (Polaris)",
-    "Audit (Kubescape)",
+    "Secure (Kubescape)",
   ];
 
   return (
