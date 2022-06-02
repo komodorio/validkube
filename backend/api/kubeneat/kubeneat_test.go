@@ -1,7 +1,8 @@
 package kubeneat
 
 import (
-	"gotest.tools/assert"
+	"github.com/stretchr/testify/assert"
+
 	"os"
 	"testing"
 )
