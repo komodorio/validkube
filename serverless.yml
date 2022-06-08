@@ -9,6 +9,7 @@ provider:
   lambdaHashingVersion: "20201221"
   runtime: go1.x
   stage: production
+  timeout: 12
   region: us-east-1
   memorySize: 256 # 1MB increments, minimum 128, affects pricing
   environment:
