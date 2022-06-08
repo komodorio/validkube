@@ -10,8 +10,9 @@ RUN cp kubeval /usr/local/bin
 RUN wget https://github.com/FairwindsOps/polaris/releases/download/5.0.0/polaris_linux_amd64.tar.gz
 RUN tar xf polaris_linux_amd64.tar.gz
 RUN cp polaris /usr/local/bin
-
-RUN curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | sh
+ 
+RUN curl -L https://github.com/armosec/kubescape/releases/download/v2.0.158/kubescape-ubuntu-latest -o kubescape
+RUN cp kubescape /usr/local/bin/kubescape
 
 FROM golang:1.17
 
