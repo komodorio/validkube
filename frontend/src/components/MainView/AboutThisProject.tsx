@@ -173,6 +173,18 @@ export const AboutThisProjectHeader: React.FC = () => {
       shortName: "polaris",
       url: " https://github.com/FairwindsOps/polaris",
     },
+    {
+      action: "Image",
+      description: "- Scan your container image for security vulnerabilities @",
+      shortName: "trivy",
+      url: " https://github.com/aquasecurity/trivy",
+    },
+    {
+      action: "SBOM",
+      description: "- Scan your container image for SBoMs @",
+      shortName: "trivy",
+      url: " https://github.com/aquasecurity/trivy",
+    },
   ];
   return (
     <HeaderContainer>
