@@ -114,7 +114,7 @@ func ProcessRequestSBOM(c *gin.Context) {
 func processTrivyRequest(c *gin.Context, action ScanAction) {
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
-		fmt.Printf("Erorr has with reading request body: %v", err)
+		fmt.Printf("Error has with reading request body: %v", err)
 		c.JSON(http.StatusOK, gin.H{"data": "", "err": err.Error()})
 		return
 	}

@@ -9,7 +9,7 @@ provider:
   lambdaHashingVersion: "20201221"
   runtime: go1.x
   stage: production
-  timeout: 12
+  timeout: 30
   region: us-east-1
   memorySize: 256 # 1MB increments, minimum 128, affects pricing
   environment:
@@ -37,14 +37,22 @@ functions:
           path: /kubeneat
           method: post
           cors: true
-  Trivy:
+  TrivyConfig:
     image:
       name: validkube
     events:
       - http:
-          path: /trivy
+          path: /trivy/config
           method: post
           cors: true
+  TrivySBOM:
+    image:
+      name: validkube
+    events:
+      - http:
+          path: /trivy/sbom
+          method: post
+          cors: true                   
   Kubeval:
     image:
       name: validkube
