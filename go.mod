@@ -9,6 +9,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/itaysk/kubectl-neat v1.2.0
 	github.com/stretchr/testify v1.7.0
+	gopkg.in/yaml.v2 v2.4.0
 	sigs.k8s.io/yaml v1.3.0
 
 )
@@ -53,7 +54,6 @@ require (
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 	k8s.io/api v0.20.6 // indirect
 	k8s.io/apiextensions-apiserver v0.0.0 // indirect
