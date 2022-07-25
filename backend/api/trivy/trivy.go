@@ -74,7 +74,7 @@ func trivyWrapper(inputYaml []byte, action ScanAction) ([]byte, error) {
 		result := regex.FindAllStringSubmatch(string(inputYaml), -1)
 		jsonArray := "["
 		for _, image := range result {
-			_, err = utils.RunCommand("trivy", "sbom", "-o", fmt.Sprintf("%s/out.json", tmp), image[1])
+			_, err = utils.RunCommand("trivy", "image", "--format", "cyclonedx", "-o", fmt.Sprintf("%s/out.json", tmp), image[1])
 			if err != nil {
 				return nil, err
 			}
