@@ -39,7 +39,7 @@ const MainView: React.FC = () => {
   const [err, setErr] = useState<any>();
   const [curTab, setCurTab] = useState<number>(0);
 
-  const callApiCallabck = useCallback(
+  const callApiCallback = useCallback(
     (endpoint: string) => {
       if (!existingYamlTextArea || existingYamlTextArea === "") return;
       callAPI(
@@ -62,7 +62,7 @@ const MainView: React.FC = () => {
         <BrOnlyOnPc />
         <TextaresContainer>
           <MyYaml
-            callApiCallabck={callApiCallabck}
+            callApiCallback={callApiCallback}
             setExistingYamlTextArea={setExistingYamlTextArea}
             curTab={curTab}
           />
@@ -70,7 +70,7 @@ const MainView: React.FC = () => {
             yamlOutput={output?.toString()}
             fetching={fetching}
             err={err}
-            callApiCallabck={callApiCallabck}
+            callApiCallback={callApiCallback}
             curTab={curTab}
             setCurTab={setCurTab}
           />

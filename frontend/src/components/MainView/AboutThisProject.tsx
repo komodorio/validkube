@@ -174,10 +174,11 @@ export const AboutThisProjectHeader: React.FC = () => {
       url: " https://github.com/FairwindsOps/polaris",
     },
     {
-      action: "Image",
-      description: "- Scan your container image for security vulnerabilities @",
-      shortName: "trivy",
-      url: " https://github.com/aquasecurity/trivy",
+      action: "Secure",
+      description:
+        "-Scan your YAML file for Devops best practices and security vulnerabilities @",
+      shortName: "kubescape",
+      url: " https://github.com/armosec/kubescape",
     },
     {
       action: "SBOM",

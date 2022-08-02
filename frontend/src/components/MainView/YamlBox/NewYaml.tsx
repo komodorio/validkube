@@ -16,8 +16,8 @@ import {
 } from "./YamlBoxComponents";
 import { StreamLanguage } from "@codemirror/stream-parser";
 import { yaml } from "@codemirror/legacy-modes/mode/yaml";
-import CodeMirror from '@uiw/react-codemirror';
-import { komodo } from "./CodemirrorKomodorTheme"
+import CodeMirror from "@uiw/react-codemirror";
+import { komodo } from "./CodemirrorKomodorTheme";
 import { EditorView } from "@codemirror/view";
 export const API_ENDPOINTS = [
   "kubeval",
@@ -25,7 +25,7 @@ export const API_ENDPOINTS = [
   "trivy/config",
   "polaris",
   "kubescape",
-  "trivy/sbom"
+  "trivy/sbom",
 ];
 
 const Container = styled.div``;
@@ -72,77 +72,81 @@ interface NewYamlProps {
   yamlOutput: string;
   fetching: boolean;
   err: any;
-  callApiCallabck: (endpoint: string) => void;
+  callApiCallback: (endpoint: string) => void;
   curTab: number;
   setCurTab: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const NewYaml: React.FC<NewYamlProps> = ({
-                                           yamlOutput,
-                                           fetching,
-                                           err,
-                                           callApiCallabck,
-                                           curTab,
-                                           setCurTab,
-                                         }) => {
+  yamlOutput,
+  fetching,
+  err,
+  callApiCallback,
+  curTab,
+  setCurTab,
+}) => {
   const tabs = [
     "Validate",
     "Clean",
     "Secure (Trivy)",
     "Audit (Polaris)",
     "Secure (Kubescape)",
-    "SBOM CycloneDX (Trivy)"
+    "SBOM (Trivy)",
   ];
 
   return (
-      <Container>
-        <TabButtons
-            tabs={tabs}
-            currentTabIndex={curTab}
-            onTabClick={(selectedTab) => {
-              setCurTab(selectedTab);
-              callApiCallabck(API_ENDPOINTS[selectedTab]);
-            }}
-        />
-        <TextAreaContainer>
-          {fetching ? (
-              <LoadingContainer>
-                <LinesLoader />
-              </LoadingContainer>
-          ) : err ? (
-              <ErrorContainer>
-                <ErrorTextPink>something's not working</ErrorTextPink>
-                <SmallBr />
-                <ErrorText>{err.toString()}</ErrorText>
-              </ErrorContainer>
-          ) : (
-              <CodeEditorContainer>
-                <CodeMirror
-                    value={yamlOutput}
-                    extensions={[komodo,StreamLanguage.define(yaml), EditorView.lineWrapping]}
-                    placeholder="here is where the magic happens"
-                    theme={"dark"}
-                    editable={true}
-                />
-              </CodeEditorContainer>
-          )}
-          <StyledHr />
-          <ButtonsContainer>
-            <BlackTransparentButton
-                onClick={() =>
-                    downloadContentToTextFile(yamlOutput, "new_yaml.yaml")
-                }
-            >
-              Download
-            </BlackTransparentButton>
-            <BlackTransparentButton
-                onClick={() => copyContentToClipboard(yamlOutput)}
-            >
-              Copy
-            </BlackTransparentButton>
-          </ButtonsContainer>
-        </TextAreaContainer>
-      </Container>
+    <Container>
+      <TabButtons
+        tabs={tabs}
+        currentTabIndex={curTab}
+        onTabClick={(selectedTab) => {
+          setCurTab(selectedTab);
+          callApiCallback(API_ENDPOINTS[selectedTab]);
+        }}
+      />
+      <TextAreaContainer>
+        {fetching ? (
+          <LoadingContainer>
+            <LinesLoader />
+          </LoadingContainer>
+        ) : err ? (
+          <ErrorContainer>
+            <ErrorTextPink>something's not working</ErrorTextPink>
+            <SmallBr />
+            <ErrorText>{err.toString()}</ErrorText>
+          </ErrorContainer>
+        ) : (
+          <CodeEditorContainer>
+            <CodeMirror
+              value={yamlOutput}
+              extensions={[
+                komodo,
+                StreamLanguage.define(yaml),
+                EditorView.lineWrapping,
+              ]}
+              placeholder="here is where the magic happens"
+              theme={"dark"}
+              editable={true}
+            />
+          </CodeEditorContainer>
+        )}
+        <StyledHr />
+        <ButtonsContainer>
+          <BlackTransparentButton
+            onClick={() =>
+              downloadContentToTextFile(yamlOutput, "new_yaml.yaml")
+            }
+          >
+            Download
+          </BlackTransparentButton>
+          <BlackTransparentButton
+            onClick={() => copyContentToClipboard(yamlOutput)}
+          >
+            Copy
+          </BlackTransparentButton>
+        </ButtonsContainer>
+      </TextAreaContainer>
+    </Container>
   );
 };
 

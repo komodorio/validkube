@@ -4,8 +4,8 @@ import { BlackTransparentButton } from "../../GenericComponents/BlackTransparent
 import { BlueButton } from "../../GenericComponents/BlueButton";
 import { NGINX_YAML } from "../manifest/manifest_examples";
 import { API_ENDPOINTS } from "./NewYaml";
-import CodeMirror from '@uiw/react-codemirror';
-import {komodo} from "./CodemirrorKomodorTheme"
+import CodeMirror from "@uiw/react-codemirror";
+import { komodo } from "./CodemirrorKomodorTheme";
 import { EditorView } from "@codemirror/view";
 
 import {
@@ -13,8 +13,8 @@ import {
   StyledHr,
   TextAreaContainer,
 } from "./YamlBoxComponents";
-import {StreamLanguage} from "@codemirror/stream-parser";
-import {yaml} from "@codemirror/legacy-modes/mode/yaml";
+import { StreamLanguage } from "@codemirror/stream-parser";
+import { yaml } from "@codemirror/legacy-modes/mode/yaml";
 
 const Header = styled.div`
   color: white;
@@ -36,14 +36,14 @@ const LeftButtonsContainer = styled.div`
 `;
 
 interface MyYamlProps {
-  callApiCallabck: (endpoint: string) => void;
+  callApiCallback: (endpoint: string) => void;
   setExistingYamlTextArea: React.Dispatch<React.SetStateAction<string>>;
   curTab: number;
 }
 
 const MyYaml: React.FC<MyYamlProps> = ({
   setExistingYamlTextArea,
-  callApiCallabck,
+  callApiCallback,
   curTab,
 }) => {
   const [textAreaValue, setTextAreaValue] = useState<string>();
@@ -65,7 +65,11 @@ const MyYaml: React.FC<MyYamlProps> = ({
               setExistingYamlTextArea(value);
               setTextAreaValue(value);
             }}
-            extensions={[komodo,StreamLanguage.define(yaml), EditorView.lineWrapping]}
+            extensions={[
+              komodo,
+              StreamLanguage.define(yaml),
+              EditorView.lineWrapping,
+            ]}
             theme={"dark"}
             editable={true}
           />
@@ -80,7 +84,7 @@ const MyYaml: React.FC<MyYamlProps> = ({
               Clear
             </BlackTransparentButton>
           </LeftButtonsContainer>
-          <BlueButton onClick={() => callApiCallabck(API_ENDPOINTS[curTab])}>
+          <BlueButton onClick={() => callApiCallback(API_ENDPOINTS[curTab])}>
             Run
           </BlueButton>
         </ButtonsContainer>
