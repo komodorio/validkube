@@ -7,7 +7,7 @@
 
 Validkube combines the best open-source tools to help ensure Kubernetes YAML best practices, hygiene & security.
 
-# Open - Source Contribution
+### Open - Source Contribution
 
 * If you want to contribute, This repository is in build. Feel free to do.
 
