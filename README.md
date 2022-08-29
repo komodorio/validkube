@@ -9,9 +9,9 @@ Validkube combines the best open-source tools to help ensure Kubernetes YAML bes
 
 ### Open - Source Contribution
 
-* If you want to contribute, This repository is in build. Feel free to do.
+* If you want to contribute, this repository is in build, so feel at home :)
 
-If you like this repo, be sure to ⭐ it.
+If you like ValidKube, share with your friends and be sure to ⭐ it!
 
 Please read [`contributing guidelines`](/contributing.md) before submitting new Resources.
 
@@ -25,7 +25,7 @@ Policies - A combination of security and best practices.
 - **Secure (Kubescape)** - Scan your YAML file for Devops best practices and security vulnerabilities @[kubescape](https://github.com/armosec/kubescape)
 - **Audit (Polaris)** - Enforce best practices in your Kubernetes clusters @[polaris](https://github.com/FairwindsOps/polaris)
 
-Validkube is an open-source site, so please feel free to add more tools or capabilities. :)
+Validkube is an open-source project, so please feel free to add more tools or capabilities. :)
 
 ## Prerequisites
 
