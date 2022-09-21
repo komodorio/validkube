@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { blueForButton } from "../../utils/Colors";
+import styled from 'styled-components';
+import { blueForButton } from '../../utils/Colors';
 
 const TabsContainer = styled.div`
   display: flex;
@@ -11,13 +11,13 @@ const Tab = styled.div<{ selected: boolean }>`
   font-weight: 700;
   letter-spacing: 0;
   margin-inline-end: 2rem;
-  color: white;
+  color: ${(props) => props.theme.text};
   font-family: Poppins;
   padding: 0.5rem 0;
   cursor: pointer;
-  font-weight: ${({ selected }) => (selected ? "700" : "500")};
+  font-weight: ${({ selected }) => (selected ? '700' : '500')};
   border-bottom: 4px solid
-    ${({ selected }) => (selected ? `${blueForButton}` : "none")};
+    ${({ selected }) => (selected ? `${blueForButton}` : 'none')};
 `;
 
 export const TabButtons: React.FC<{
