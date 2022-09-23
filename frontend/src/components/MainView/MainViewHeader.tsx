@@ -1,20 +1,20 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
-import GitHubButton from 'react-github-btn';
-import { ReactComponent as PoweredByKomodor } from './assets/PoweredByKomodor.svg';
-import { ReactComponent as LogoValidkube } from './assets/Logo_validkube.svg';
-import { ReactComponent as GitIcon } from './assets/GitIcon.svg';
-import { ReactComponent as LinkedinIcon } from './assets/LinkedinIcon.svg';
-import { ReactComponent as TwitterIcon } from './assets/TwitterIcon.svg';
-import { ReactComponent as LogoModblieValidkube } from './assets/Logo_Modblie_validkube.svg';
-import { ReactComponent as MoonIcon } from './assets/MoonIcon.svg';
-import { ReactComponent as SunIcon } from './assets/SunIcon.svg';
+import React, { useContext } from "react";
+import styled from "styled-components";
+import GitHubButton from "react-github-btn";
+import { ReactComponent as PoweredByKomodor } from "./assets/PoweredByKomodor.svg";
+import { ReactComponent as LogoValidkube } from "./assets/Logo_validkube.svg";
+import { ReactComponent as GitIcon } from "./assets/GitIcon.svg";
+import { ReactComponent as LinkedinIcon } from "./assets/LinkedinIcon.svg";
+import { ReactComponent as TwitterIcon } from "./assets/TwitterIcon.svg";
+import { ReactComponent as LogoModblieValidkube } from "./assets/Logo_Modblie_validkube.svg";
+import { ReactComponent as MoonIcon } from "./assets/MoonIcon.svg";
+import { ReactComponent as SunIcon } from "./assets/SunIcon.svg";
 
-import { ThemePreference } from '../../App';
+import { ThemePreference } from "../Context/ThemeContext";
 
-export const KOMODOR_COM = 'https://komodor.com/';
-export const TWITTER_URL = 'https://twitter.com/Komodor_com';
-export const LINKEDIN_URL = 'https://www.linkedin.com/company/komodor-ltd/';
+export const KOMODOR_COM = "https://komodor.com/";
+export const TWITTER_URL = "https://twitter.com/Komodor_com";
+export const LINKEDIN_URL = "https://www.linkedin.com/company/komodor-ltd/";
 
 const Container = styled.div`
   padding: 1% 1.5%;
@@ -93,9 +93,7 @@ const LogoValidkubeMobileContainer = styled(LogoModblieValidkube)`
 
 const MainViewHeader: React.FC = () => {
   const theme = useContext(ThemePreference);
-
-  const togglerTheme = theme?.currentTheme === 'dark' ? 'light' : 'dark';
-  console.log(togglerTheme);
+  const togglerTheme = theme?.currentTheme === "dark" ? "light" : "dark";
 
   return (
     <TopContainer>
@@ -122,7 +120,7 @@ const MainViewHeader: React.FC = () => {
             ></GitHubButton>
           </GitContainer>
           <DotIconContainer>
-            {theme?.currentTheme === 'dark' ? (
+            {theme?.currentTheme === "dark" ? (
               <SunIcon onClick={() => theme?.setCurrentTheme(togglerTheme)} />
             ) : (
               <MoonIcon onClick={() => theme?.setCurrentTheme(togglerTheme)} />

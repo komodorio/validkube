@@ -1,17 +1,17 @@
-import React, { Fragment } from 'react';
-import styled from 'styled-components';
-import { mainBackgrund, purpleBackground } from '../../utils/Colors';
-import { ReactComponent as CheckIcon } from './assets/Check.svg';
-import { ReactComponent as KomodorLogo } from './assets/KomodorLogo.svg';
-import { ReactComponent as DotIcon } from './assets/DotIcon.svg';
-import { ReactComponent as LinkedinIcon } from './assets/LinkedinIcon.svg';
-import { ReactComponent as TwitterIcon } from './assets/TwitterIcon.svg';
-import { ReactComponent as GreyDotIcon } from './assets/GreyDotIcon.svg';
-import { KOMODOR_COM, LINKEDIN_URL, TWITTER_URL } from './MainViewHeader';
-import GitHubButton from 'react-github-btn';
-import { BrOnlyOnPc } from './index';
+import React, { Fragment } from "react";
+import styled from "styled-components";
+import { mainBackgrund, purpleBackground } from "../../utils/Colors";
+import { ReactComponent as CheckIcon } from "./assets/Check.svg";
+import { ReactComponent as KomodorLogo } from "./assets/KomodorLogo.svg";
+import { ReactComponent as DotIcon } from "./assets/DotIcon.svg";
+import { ReactComponent as LinkedinIcon } from "./assets/LinkedinIcon.svg";
+import { ReactComponent as TwitterIcon } from "./assets/TwitterIcon.svg";
+import { ReactComponent as GreyDotIcon } from "./assets/GreyDotIcon.svg";
+import { KOMODOR_COM, LINKEDIN_URL, TWITTER_URL } from "./MainViewHeader";
+import GitHubButton from "react-github-btn";
+import { BrOnlyOnPc } from "./index";
 
-const GITHUB_REPO_VALIDKUBE = 'https://github.com/komodorio/validkube';
+const GITHUB_REPO_VALIDKUBE = "https://github.com/komodorio/validkube";
 
 const Container = styled.div`
   color: white;
@@ -151,41 +151,41 @@ export const AboutThisProjectHeader: React.FC = () => {
     url: string;
   }[] = [
     {
-      action: 'Validate',
-      description: '- Verify your Kubernetes configuration files @',
-      shortName: 'kubeval',
-      url: ' https://github.com/instrumenta/kubeval',
+      action: "Validate",
+      description: "- Verify your Kubernetes configuration files @",
+      shortName: "kubeval",
+      url: " https://github.com/instrumenta/kubeval",
     },
     {
-      action: 'Clean',
-      description: '- Remove clutter from your Kubernetes manifests @',
-      shortName: 'kubectl-neat',
-      url: ' https://github.com/itaysk/kubectl-neat',
+      action: "Clean",
+      description: "- Remove clutter from your Kubernetes manifests @",
+      shortName: "kubectl-neat",
+      url: " https://github.com/itaysk/kubectl-neat",
     },
     {
-      action: 'Secure',
-      description: '- Scan your YAML code for security vulnerabilities @',
-      shortName: 'trivy',
-      url: ' https://github.com/aquasecurity/trivy',
+      action: "Secure",
+      description: "- Scan your YAML code for security vulnerabilities @",
+      shortName: "trivy",
+      url: " https://github.com/aquasecurity/trivy",
     },
     {
-      action: 'Audit',
-      description: '-Validation of best practices for your yaml @',
-      shortName: 'polaris',
-      url: ' https://github.com/FairwindsOps/polaris',
+      action: "Audit",
+      description: "-Validation of best practices for your yaml @",
+      shortName: "polaris",
+      url: " https://github.com/FairwindsOps/polaris",
     },
     {
-      action: 'Secure',
+      action: "Secure",
       description:
-        '-Scan your YAML file for Devops best practices and security vulnerabilities @',
-      shortName: 'kubescape',
-      url: ' https://github.com/armosec/kubescape',
+        "-Scan your YAML file for Devops best practices and security vulnerabilities @",
+      shortName: "kubescape",
+      url: " https://github.com/armosec/kubescape",
     },
     {
-      action: 'SBOM',
-      description: '- Scan your container image for SBoMs @',
-      shortName: 'trivy',
-      url: ' https://github.com/aquasecurity/trivy',
+      action: "SBOM",
+      description: "- Scan your container image for SBoMs @",
+      shortName: "trivy",
+      url: " https://github.com/aquasecurity/trivy",
     },
   ];
   return (
@@ -208,7 +208,7 @@ export const AboutThisProjectHeader: React.FC = () => {
               </CheckIconContainer>
               <span>
                 <b>{check.action} </b>
-                {check.description}{' '}
+                {check.description}{" "}
                 <CustomLink href={check.url} target={check.url}>
                   {check.shortName}
                 </CustomLink>
@@ -229,19 +229,19 @@ export const AboutThisProjectHeader: React.FC = () => {
           </Fragment>
         ))}
         <br />
-        <div style={{ wordBreak: 'break-word' }}>
-          Validkube is an{' '}
+        <div style={{ wordBreak: "break-word" }}>
+          Validkube is an{" "}
           <CustomLink
             href={GITHUB_REPO_VALIDKUBE}
             target={GITHUB_REPO_VALIDKUBE}
           >
             open-source
-          </CustomLink>{' '}
+          </CustomLink>{" "}
           site, so please feel free to add more tools or capabilities. :)
         </div>
         <br />
-        <div style={{ wordBreak: 'break-word' }}>
-          Looking for Infrastructure-as-Code validation tool? check out{' '}
+        <div style={{ wordBreak: "break-word" }}>
+          Looking for Infrastructure-as-Code validation tool? check out{" "}
           <CustomLink
             href="https://www.validiac.com/"
             target="https://www.validiac.com/"

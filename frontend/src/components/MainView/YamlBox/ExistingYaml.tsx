@@ -1,20 +1,20 @@
-import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
-import { BlackTransparentButton } from '../../GenericComponents/BlackTransparentButton';
-import { BlueButton } from '../../GenericComponents/BlueButton';
-import { NGINX_YAML } from '../manifest/manifest_examples';
-import { API_ENDPOINTS } from './NewYaml';
-import CodeMirror from '@uiw/react-codemirror';
-import { komodo } from './CodemirrorKomodorTheme';
-import { EditorView } from '@codemirror/view';
+import React, { useCallback, useState } from "react";
+import styled from "styled-components";
+import { BlackTransparentButton } from "../../GenericComponents/BlackTransparentButton";
+import { BlueButton } from "../../GenericComponents/BlueButton";
+import { NGINX_YAML } from "../manifest/manifest_examples";
+import { API_ENDPOINTS } from "./NewYaml";
+import CodeMirror from "@uiw/react-codemirror";
+import { komodo } from "./CodemirrorKomodorTheme";
+import { EditorView } from "@codemirror/view";
 
 import {
   CodeEditorContainer,
   StyledHr,
   TextAreaContainer,
-} from './YamlBoxComponents';
-import { StreamLanguage } from '@codemirror/stream-parser';
-import { yaml } from '@codemirror/legacy-modes/mode/yaml';
+} from "./YamlBoxComponents";
+import { StreamLanguage } from "@codemirror/stream-parser";
+import { yaml } from "@codemirror/legacy-modes/mode/yaml";
 
 const Header = styled.div`
   color: ${(props) => props.theme.text};
@@ -70,7 +70,7 @@ const MyYaml: React.FC<MyYamlProps> = ({
               StreamLanguage.define(yaml),
               EditorView.lineWrapping,
             ]}
-            theme={'dark'}
+            theme={"dark"}
             editable={true}
           />
         </CodeEditorContainer>
@@ -80,7 +80,7 @@ const MyYaml: React.FC<MyYamlProps> = ({
             <BlackTransparentButton onClick={() => setExampleCallback()}>
               Example
             </BlackTransparentButton>
-            <BlackTransparentButton onClick={() => setTextAreaValue('')}>
+            <BlackTransparentButton onClick={() => setTextAreaValue("")}>
               Clear
             </BlackTransparentButton>
           </LeftButtonsContainer>
