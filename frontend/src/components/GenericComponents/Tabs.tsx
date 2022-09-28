@@ -11,7 +11,7 @@ const Tab = styled.div<{ selected: boolean }>`
   font-weight: 700;
   letter-spacing: 0;
   margin-inline-end: 2rem;
-  color: white;
+  color: ${(props) => props.theme.text};
   font-family: Poppins;
   padding: 0.5rem 0;
   cursor: pointer;

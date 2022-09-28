@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import "./App.css";
+import { ThemePreference } from "./components/Context/ThemeContext";
 import PrivateRoutes from "./components/Routes/PrivateRoutes";
 import { mainBackgrund } from "./utils/Colors";
 import { ScrollToTop } from "./utils/scroll";
@@ -11,21 +12,33 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${mainBackgrund};
   }
 `;
+const GlobalStyleLight = createGlobalStyle`
+ body {
+    background-color:'white';
+  }
+`;
 
 const Container = styled.div`
   font-family: "Roboto", sans-serif;
-  color: black;
+  color: ${(props) => props.theme.body};
   line-height: initial;
 `;
 
 const App: React.FC = () => {
+  const themes = useContext(ThemePreference);
   return (
     <Router>
       <ScrollToTop />
-      <Container>
-        <GlobalStyle />
-        <PrivateRoutes />
-      </Container>
+      <ThemeProvider theme={themes?.theme}>
+        <Container>
+          {themes?.currentTheme === "dark" ? (
+            <GlobalStyle />
+          ) : (
+            <GlobalStyleLight />
+          )}
+          <PrivateRoutes />
+        </Container>
+      </ThemeProvider>
     </Router>
   );
 };

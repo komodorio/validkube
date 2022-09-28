@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { purpleBackground } from "../../utils/Colors";
+import { mainBackgrund, purpleBackground } from "../../utils/Colors";
 import { ReactComponent as CheckIcon } from "./assets/Check.svg";
 import { ReactComponent as KomodorLogo } from "./assets/KomodorLogo.svg";
 import { ReactComponent as DotIcon } from "./assets/DotIcon.svg";
@@ -34,6 +34,7 @@ const BottomContainer = styled(Container)`
   @media (max-width: 74rem) {
     justify-content: space-between;
   }
+  background-color: ${mainBackgrund};
 `;
 
 const MainDiv = styled.div`

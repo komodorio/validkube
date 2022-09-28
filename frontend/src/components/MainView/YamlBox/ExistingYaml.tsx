@@ -17,7 +17,7 @@ import { StreamLanguage } from "@codemirror/stream-parser";
 import { yaml } from "@codemirror/legacy-modes/mode/yaml";
 
 const Header = styled.div`
-  color: white;
+  color: ${(props) => props.theme.text};
   font-weight: 700;
   font-family: Poppins;
   text-align: left;
