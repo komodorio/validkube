@@ -52,6 +52,7 @@ const RightHeaderContainer = styled.div`
 `;
 
 const DotIconContainer = styled.div`
+  cursor: pointer;
   > svg {
     vertical-align: center;
   }

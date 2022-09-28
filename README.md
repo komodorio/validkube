@@ -36,6 +36,7 @@ Validkube is an open-source project, so please feel free to add more tools or ca
 - NPM
 - Serverless CLI
 - Golang v1.17
+- Netlify-cli
 
 ## Deploy
 

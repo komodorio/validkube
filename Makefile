@@ -27,7 +27,7 @@ deploy-backend: clean build
 	sls deploy --verbose
 
 deploy-frontend:
-	cd frontend && $(MAKE) deploy
+	cd frontend && yarn --frozen-lockfile && $(MAKE) deploy
 
 deploy: deploy-backend deploy-frontend
 	echo "Deploying BE and FE"
