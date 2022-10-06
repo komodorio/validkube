@@ -20,7 +20,7 @@ package:
   exclude:
     - ./**
   include:
-    - ./bin/**
+    - ./backend/**
 
 # Endpoint config
 functions:

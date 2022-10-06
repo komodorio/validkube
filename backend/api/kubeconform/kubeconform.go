@@ -1,7 +1,6 @@
 package kubeconform
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os/exec"
@@ -23,17 +22,9 @@ func kubeconformWrapper(inputYaml []byte) ([]byte, error) {
 	if err := utils.WriteFile("/tmp/yaml/target_yaml.yaml", inputYaml); err != nil {
 		return nil, err
 	}
-	cmd := exec.Command("kubeconform", "-output", "json", "/tmp/yaml/target_yaml.yaml")
-	stderr, err := cmd.StderrPipe()
-	if err != nil {
-		fmt.Println(stderr)
-		return nil, fmt.Errorf("error in StderrPipe(), err: %s", err.Error())
-	}
-	outputFromKubeconformAsJson, err := cmd.Output()
-	if err != nil {
-		return nil, err
-	}
 
+	outputFromKubeconformAsJson, _ := exec.Command("kubeconform", "-output", "json", "/tmp/yaml/target_yaml.yaml").Output()
+	// We don't wanna check error here because the default error code here is like the error from the kubeconform code
 	outputFromKubeconformAsYaml, err := yaml.JSONToYAML(outputFromKubeconformAsJson)
 	if err != nil {
 		return nil, err
@@ -44,7 +35,6 @@ func kubeconformWrapper(inputYaml []byte) ([]byte, error) {
 func ProcessRequest(c *gin.Context) {
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
-		fmt.Printf("error has with reading request body: %v", err)
 		c.JSON(http.StatusOK, gin.H{"data": "", "err": err.Error()})
 		return
 	}
@@ -56,7 +46,6 @@ func ProcessRequest(c *gin.Context) {
 	yamlAsInterface := bodyAsMap["yaml"]
 	KubeconformOutput, err := kubeconformWrapper(utils.InterfaceToBytes(yamlAsInterface))
 	if err != nil {
-		fmt.Printf("got error while parsing result from kubeconform: %s \n", err.Error())
 		c.JSON(http.StatusOK, gin.H{"data": "", "err": err.Error()})
 		return
 	}
