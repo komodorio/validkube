@@ -20,7 +20,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { komodo } from "./CodemirrorKomodorTheme";
 import { EditorView } from "@codemirror/view";
 export const API_ENDPOINTS = [
-  "kubeval",
+  "kubeconform",
   "kubeneat",
   "trivy/config",
   "polaris",

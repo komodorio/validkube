@@ -17,6 +17,7 @@ const Method = routing.POST
 
 func polarisWrapper(inputYaml []byte) ([]byte, error) {
 	err := utils.CreateDirectory("/tmp/yaml")
+
 	if err != nil {
 		return nil, err
 	}

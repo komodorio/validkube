@@ -37,7 +37,7 @@ Validkube is an open-source project, so please feel free to add more tools or ca
 - Serverless CLI
 - Golang v1.17
 - Netlify-cli
-- CLI tools for kubeval, kubescape, trivy and polaris
+- CLI tools for kubeval, kubescape, trivy and polaris, kubeconform
 
 ## Deploy
 

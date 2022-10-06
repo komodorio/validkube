@@ -1,4 +1,4 @@
-package kubeval
+package kubeconform
 
 import (
 	"fmt"
@@ -12,53 +12,53 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-const Path = "/kubeval"
+const Path = "/kubeconform"
 const Method = routing.POST
 
-func kubevalWrapper(inputYaml []byte) ([]byte, error) {
+func kubeconformWrapper(inputYaml []byte) ([]byte, error) {
 	if err := utils.CreateDirectory("/tmp/yaml"); err != nil {
-		fmt.Printf("got error 1: %s \n", err.Error())
 		return nil, err
 	}
 
 	if err := utils.WriteFile("/tmp/yaml/target_yaml.yaml", inputYaml); err != nil {
-		fmt.Printf("got error 2: %s \n", err.Error())
 		return nil, err
 	}
-	outputFromKubevalAsJson, err := exec.Command("kubeval", "-o", "json", "/tmp/yaml/target_yaml.yaml").Output()
+	cmd := exec.Command("kubeconform", "-output", "json", "/tmp/yaml/target_yaml.yaml")
+	stderr, err := cmd.StderrPipe()
 	if err != nil {
-		fmt.Printf("got error 3: %s \n", err.Error())
+		fmt.Println(stderr)
+		return nil, fmt.Errorf("error in StderrPipe(), err: %s", err.Error())
+	}
+	outputFromKubeconformAsJson, err := cmd.Output()
+	if err != nil {
 		return nil, err
 	}
 
-	outputFromKubevalAsYaml, err := yaml.JSONToYAML(outputFromKubevalAsJson)
+	outputFromKubeconformAsYaml, err := yaml.JSONToYAML(outputFromKubeconformAsJson)
 	if err != nil {
-		fmt.Printf("got error 4: %s \n", err.Error())
 		return nil, err
 	}
-	return outputFromKubevalAsYaml, nil
+	return outputFromKubeconformAsYaml, nil
 }
 
 func ProcessRequest(c *gin.Context) {
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
-		fmt.Printf("got error 5: %s \n", err.Error())
-		fmt.Printf("Erorr has with reading request body: %v", err)
+		fmt.Printf("error has with reading request body: %v", err)
 		c.JSON(http.StatusOK, gin.H{"data": "", "err": err.Error()})
 		return
 	}
 	bodyAsMap, err := utils.JsonToMap(body)
 	if err != nil {
-		fmt.Printf("got error 6: %s \n", err.Error())
 		c.JSON(http.StatusOK, gin.H{"data": "", "err": err.Error()})
 		return
 	}
 	yamlAsInterface := bodyAsMap["yaml"]
-	kubevalOutput, err := kubevalWrapper(utils.InterfaceToBytes(yamlAsInterface))
+	KubeconformOutput, err := kubeconformWrapper(utils.InterfaceToBytes(yamlAsInterface))
 	if err != nil {
-		fmt.Printf("got error 7: %s \n", err.Error())
+		fmt.Printf("got error while parsing result from kubeconform: %s \n", err.Error())
 		c.JSON(http.StatusOK, gin.H{"data": "", "err": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": string(kubevalOutput), "err": nil})
+	c.JSON(http.StatusOK, gin.H{"data": string(KubeconformOutput), "err": nil})
 }

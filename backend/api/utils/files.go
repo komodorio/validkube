@@ -16,9 +16,5 @@ func WriteFile(path string, data []byte) error {
 }
 
 func CreateDirectory(path string) error {
-	_, err := RunCommand("mkdir", "-p", path)
-	if err != nil {
-		return err
-	}
-	return nil
+	return os.MkdirAll(path, os.ModePerm)
 }

@@ -8,7 +8,7 @@ test:
 
 build:
 	rm -f bin/*
-	env GOOS=linux go build -ldflags="-s -w" -o bin/lambda backend/endpoints/aws/lambda.go
+	env GOARCH=amd64 GOOS=linux go build -ldflags="-s -w" -o bin/lambda backend/endpoints/aws/lambda.go
 
 build-image-local: build
 	docker build . -t validkube
@@ -23,7 +23,7 @@ start-local-backend:
 start-local-frontend:
 	cd frontend && yarn start
 
-deploy-backend: clean build
+deploy-backend:
 	sls deploy --verbose
 
 deploy-frontend:

@@ -9,7 +9,7 @@ import {
 import MyYaml from "./YamlBox/ExistingYaml";
 import NewYaml from "./YamlBox/NewYaml";
 
-const TextaresContainer = styled.div`
+const TextAreaContainer = styled.div`
   display: grid;
   grid-column-gap: 4rem;
   grid-row-gap: 3rem;
@@ -61,7 +61,7 @@ const MainView: React.FC = () => {
       <MainViewHeader />
       <MainViewBodyContainer>
         <BrOnlyOnPc />
-        <TextaresContainer>
+        <TextAreaContainer>
           <MyYaml
             callApiCallback={callApiCallback}
             setExistingYamlTextArea={setExistingYamlTextArea}
@@ -75,7 +75,7 @@ const MainView: React.FC = () => {
             curTab={curTab}
             setCurTab={setCurTab}
           />
-        </TextaresContainer>
+        </TextAreaContainer>
         <BrOnlyOnPc />
       </MainViewBodyContainer>
       <AboutThisProjectHeader />

@@ -6,14 +6,15 @@ provider:
     images:
       validkube:
         path: ./
-  lambdaHashingVersion: "20201221"
+        platform: linux/amd64
   runtime: go1.x
   stage: production
   timeout: 30
   region: us-east-1
   memorySize: 256 # 1MB increments, minimum 128, affects pricing
+  architecture: x86_64
   environment:
-    ALLOWED_ORIGIN: ${ssm:/validkube/config/allowed_origin}
+    ALLOWED_ORIGIN: https://validkube.com
 
 package:
   exclude:
@@ -77,6 +78,14 @@ functions:
           path: /kubescape
           method: post
           cors: true          
+  Kubeconform:
+    image:
+      name: validkube
+    events:
+      - http:
+          path: /kubeconform
+          method: post
+          cors: true                
 
 resources:
   - ${file(s3-bucket.yml)}
