@@ -24,6 +24,7 @@ const TextaresContainer = styled.div`
 
 const MainViewBodyContainer = styled.div`
   overflow-y: auto;
+  background-color: #eeeeee;
 `;
 
 export const BrOnlyOnPc = styled.br`
