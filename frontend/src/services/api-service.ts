@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { Record } from "runtypes";
-
 const BACKEND_GETWAY_URL = process.env.REACT_APP_API;
 
 export const callAPIExample = (
@@ -51,38 +48,3 @@ export const callAPI = (
 };
 
 const emptyInterface = {};
-const Response = Record({
-  data: Record({}),
-});
-
-type ResponseType = typeof Response;
-
-export const useCallAPIHook = (
-  endpoint: string,
-  data: typeof emptyInterface
-): [
-  respone: ResponseType | undefined,
-  fetching: boolean,
-  error: any | null
-] => {
-  const [response, setResponse] = useState<ResponseType>();
-  const [fetching, setFetching] = useState(true);
-  const [error, setError] = useState(null);
-  fetch(`${BACKEND_GETWAY_URL}/${endpoint}`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      setResponse(response.data);
-      setFetching(false);
-    })
-    .catch((e) => {
-      setError(e);
-    });
-  return [response, fetching, error];
-};

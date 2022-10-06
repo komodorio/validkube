@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { mainBackgrund } from "../../utils/Colors";
+import { mainBackground } from "../../utils/Colors";
 
 export const BlackTransparentButton = styled.button`
-  background-color: ${mainBackgrund};
+  background-color: ${mainBackground};
   border: 1px solid white;
   display: grid;
   width: fit-content;

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { mainBackgrund, purpleBackground } from "../../utils/Colors";
+import { mainBackground, purpleBackground } from "../../utils/Colors";
 import { ReactComponent as CheckIcon } from "./assets/Check.svg";
 import { ReactComponent as KomodorLogo } from "./assets/KomodorLogo.svg";
 import { ReactComponent as DotIcon } from "./assets/DotIcon.svg";
@@ -34,7 +34,7 @@ const BottomContainer = styled(Container)`
   @media (max-width: 74rem) {
     justify-content: space-between;
   }
-  background-color: ${mainBackgrund};
+  background-color: ${mainBackground};
 `;
 
 const MainDiv = styled.div`
@@ -153,8 +153,8 @@ export const AboutThisProjectHeader: React.FC = () => {
     {
       action: "Validate",
       description: "- Verify your Kubernetes configuration files @",
-      shortName: "kubeval",
-      url: " https://github.com/instrumenta/kubeval",
+      shortName: "kubeconform",
+      url: " https://github.com/yannh/kubeconform",
     },
     {
       action: "Clean",

@@ -1,4 +1,4 @@
-export const mainBackgrund = "#000C37";
+export const mainBackground = "#000C37";
 export const yamlTextColor = "#707583";
 export const blueForButton = "#007AFF";
 export const greyBorder = "#9195a1";

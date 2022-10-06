@@ -4,12 +4,12 @@ import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import "./App.css";
 import { ThemePreference } from "./components/Context/ThemeContext";
 import PrivateRoutes from "./components/Routes/PrivateRoutes";
-import { mainBackgrund } from "./utils/Colors";
+import { mainBackground } from "./utils/Colors";
 import { ScrollToTop } from "./utils/scroll";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${mainBackgrund};
+    background-color: ${mainBackground};
   }
 `;
 const GlobalStyleLight = createGlobalStyle`

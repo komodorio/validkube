@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { greyBorder, mainBackgrund } from "../../../utils/Colors";
+import { greyBorder, mainBackground } from "../../../utils/Colors";
 
 export const StyledTextArea = styled.textarea`
   height: 450px;
@@ -9,7 +9,7 @@ export const StyledTextArea = styled.textarea`
   width: -webkit-fill-available;
   line-height: 1.45;
   resize: none;
-  background-color: ${mainBackgrund};
+  background-color: ${mainBackground};
   color: white;
   font-size: 14px;
   border: hidden;

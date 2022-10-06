@@ -24,7 +24,7 @@ const TextAreaContainer = styled.div`
 
 const MainViewBodyContainer = styled.div`
   overflow-y: auto;
-  background-color: #eeeeee;
+  background-color: ${(props) => props.theme.mainBgColor};
 `;
 
 export const BrOnlyOnPc = styled.br`
