@@ -31,13 +31,18 @@ Validkube is an open-source project, so please feel free to add more tools or ca
 
 ---
 
-- AWS CLI with access to your AWS
-- Yarn
-- NPM
-- Serverless CLI
-- Golang >v1.17
-- Netlify-cli
-- CLI tools for kubescape, trivy and polaris, kubeconform
+### OS tools:
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) with access to your [AWS Console](https://console.aws.amazon.com/)
+- [Yarn](https://yarnpkg.com/getting-started/install)
+- [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Serverless CLI](https://www.serverless.com/framework/docs/getting-started/)
+- [Golang](https://go.dev/doc/install) >v1.17
+- [Netlify-cli](https://docs.netlify.com/cli/get-started/)
+### K8s CLI tools:
+  - [kubescape](https://docs.netlify.com/cli/get-started/)
+  - [trivy](https://aquasecurity.github.io/trivy/latest/getting-started/installation/)
+  - [polaris](https://polaris.docs.fairwinds.com/infrastructure-as-code/#install-the-cli)
+  - [kubeconform](https://github.com/yannh/kubeconform#installation)
 
 ## Deploy
 
@@ -46,50 +51,50 @@ Validkube is an open-source project, so please feel free to add more tools or ca
 Full deploy:
 
 ```bash
-    make deploy
+make deploy
 ```
 
 Deploy backend:
 
 ```bash
-    make deploy-backend
+make deploy-backend
 ```
 
 In order to update web domain:
 
 ```bash
-    aws ssm put-parameter --name /validkube/config/allowed_origin --type String --value {frontend-domain} --overwrite
+aws ssm put-parameter --name /validkube/config/allowed_origin --type String --value {frontend-domain} --overwrite
 ```
 
 Deploy frontend:
 
 ```bash
-    make deploy-frontend
+make deploy-frontend
 ```
 
-## Local environment
+## Local Environment
 
 ---
 
-In order to run this locally, specify 'ALLOWED_ORIGIN' environment variable to 'http://localhost:3000'
+To run locally, set **`ALLOWED_ORIGIN`** environment variable to **`http://localhost:3000`**
 
 Example in Linux:
 
 ```bash
-    export ALLOWED_ORIGIN=http://localhost:3000
+export ALLOWED_ORIGIN='http://localhost:3000'
 ```
 
 In order to start backend:
 
 ```bash
-    go mod download
-    go run backend/development/localdev.go
+go mod download
+go run backend/development/localdev.go
 ```
 
 In order to start frontend:
 
 ```bash
-    cd frontend
-    yarn install
-    yarn start
+cd frontend
+yarn install
+yarn start
 ```
