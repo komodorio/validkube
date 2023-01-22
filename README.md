@@ -39,7 +39,7 @@ Validkube is an open-source project, so please feel free to add more tools or ca
 - [Golang](https://go.dev/doc/install) >v1.17
 - [Netlify-cli](https://docs.netlify.com/cli/get-started/)
 ### K8s CLI tools:
-  - [kubescape](https://docs.netlify.com/cli/get-started/)
+  - [kubescape](https://github.com/kubescape/kubescape#install-on-windows)
   - [trivy](https://aquasecurity.github.io/trivy/latest/getting-started/installation/)
   - [polaris](https://polaris.docs.fairwinds.com/infrastructure-as-code/#install-the-cli)
   - [kubeconform](https://github.com/yannh/kubeconform#installation)
