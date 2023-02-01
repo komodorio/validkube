@@ -32,7 +32,8 @@ functions:
           method: get
           cors: true
   Kubeneat:
-    handler: bin/lambda
+    image:
+      name: validkube
     events:
       - http:
           path: /kubeneat
