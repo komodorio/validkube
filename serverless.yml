@@ -31,7 +31,7 @@ functions:
           path: /hello
           method: get
           cors: true
-  Kubeneat:
+  Neating:
     image:
       name: validkube
     events:
