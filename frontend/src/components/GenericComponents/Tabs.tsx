@@ -8,11 +8,6 @@ const TabsContainer = styled.div`
     width: 85vw;
     overflow-x: scroll;
   }
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-    scrollbar-width: none;  
 `;
 
 const Tab = styled.div<{ selected: boolean }>`
