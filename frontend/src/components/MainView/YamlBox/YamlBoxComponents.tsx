@@ -27,6 +27,9 @@ export const StyledTextAreaCss = {
 export const TextAreaContainer = styled.div`
   border: 1px solid ${greyBorder};
   width: 100%;
+  @media only screen and (max-width: 600px){
+    width: 85vw;
+  }
 `;
 
 export const StyledHr = styled.hr`

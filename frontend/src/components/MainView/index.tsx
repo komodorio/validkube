@@ -20,6 +20,12 @@ const TextAreaContainer = styled.div`
     grid-auto-flow: column;
   }
   padding: 2% 8% 3% 8%;
+  @media only screen and (max-width: 600px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2% 0 3%;
+  }
 `;
 
 const MainViewBodyContainer = styled.div`
