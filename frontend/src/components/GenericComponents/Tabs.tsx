@@ -4,15 +4,15 @@ import { blueForButton } from "../../utils/Colors";
 const TabsContainer = styled.div`
   display: flex;
   margin-bottom: 0.8rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   @media only screen and (max-width: 600px){
     width: 85vw;
     overflow-x: scroll;
-  }
+  }  
   ::-webkit-scrollbar {
     display: none;
   }
-  -ms-overflow-style: none;
-    scrollbar-width: none;  
 `;
 
 const Tab = styled.div<{ selected: boolean }>`
