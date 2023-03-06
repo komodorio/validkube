@@ -30,19 +30,13 @@
     "web-vitals": "^2.1.3"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_API=http://localhost:8080 react-scripts start",
+    "start": "npx prettier --write . && cross-env REACT_APP_API=http://localhost:8080 react-scripts start",
     "build:local": "cross-env REACT_APP_API=http://localhost:8080 react-scripts build",
     "build": "cross-env REACT_APP_API=https://gtgmn58dh9.execute-api.us-east-1.amazonaws.com/production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"*/**/*.{js,ts,tsx}\" --max-warnings=0",
     "lint-fix": "yarn lint --fix"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -61,6 +55,8 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.1",
     "@uiw/react-textarea-code-editor": "v1.4.4",
-    "dotenv": "^11.0.0"
+    "dotenv": "^11.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "prettier": "2.8.4"
   }
 }
