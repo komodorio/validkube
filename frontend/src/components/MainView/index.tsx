@@ -10,10 +10,6 @@ import MyYaml from "./YamlBox/ExistingYaml";
 import NewYaml from "./YamlBox/NewYaml";
 
 const TextAreaContainer = styled.div`
-  display: grid;
-  grid-column-gap: 4rem;
-  grid-row-gap: 3rem;
-  align-items: self-end;
   @media (min-width: 74rem) {
     grid-template-columns: 1fr 1fr;
     justify-content: center;
