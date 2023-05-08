@@ -7,7 +7,6 @@ const BASE_ANALYTIC_MSG: RequestInit = {
     method: "POST",
     mode: "cors" as RequestMode,
     cache: "no-cache" as RequestCache,
-    //credentials: "include",
     headers: {
         "Content-Type": "application/json",
         "api-key": "komodor.analytics@admin.com",
@@ -22,7 +21,7 @@ function createBody(
     params: { [p: string]: unknown },
     eventName: string | undefined
 ): Record<string, unknown> {
-    const data: Record<string, unknown> = { userId: getUserId() };
+    const data: Record<string, unknown> = {userId: getUserId()};
     if (segmentCallType === IDENTIFY_EVENT_TYPE) {
         data["traits"] = params;
     } else if (segmentCallType === TRACK_EVENT_TYPE) {
@@ -60,11 +59,6 @@ function sendData(
         body: JSON.stringify(body),
     });
 }
-
-
-
-
-
 
 const getUserId = (() => {
     let userId: string = ''
