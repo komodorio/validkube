@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, {useCallback, useState} from "react";
 import styled from "styled-components";
 import { callAPI } from "../../services/api-service";
 import MainViewHeader from "./MainViewHeader";
