@@ -6,10 +6,10 @@ const TabsContainer = styled.div`
   margin-bottom: 0.8rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  @media only screen and (max-width: 600px){
+  @media only screen and (max-width: 600px) {
     width: 85vw;
     overflow-x: scroll;
-  }  
+  }
   ::-webkit-scrollbar {
     display: none;
   }
