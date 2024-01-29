@@ -15,6 +15,7 @@ import { ThemePreference } from "../Context/ThemeContext";
 export const KOMODOR_COM = "https://komodor.com/";
 export const TWITTER_URL = "https://twitter.com/Komodor_com";
 export const LINKEDIN_URL = "https://www.linkedin.com/company/komodor-ltd/";
+export const GITHUB_URL = "https://github.com/komodorio/validkube";
 
 const Container = styled.div`
   padding: 1% 1.5%;
@@ -109,9 +110,11 @@ const MainViewHeader: React.FC = () => {
             <TwitterIcon onClick={() => window.open(TWITTER_URL)} />
           </SocialButtonContainer>
           <GitContainer>
-            <GitIcon />
+            <SocialButtonContainer>
+              <GitIcon onClick={() => window.open(GITHUB_URL)}></GitIcon>
+            </SocialButtonContainer>
             <GitHubButton
-              href="https://github.com/komodorio/validkube"
+              href={GITHUB_URL}
               data-color-scheme="no-preference: light; light: light; dark: light;"
               data-icon="octicon-star"
               data-size="medium"
